@@ -1,0 +1,62 @@
+{
+  "error": "",
+  "active_game": {
+    "heroes": [],
+    "gsi_state": "playing",
+    "hero_data": {},
+    "gsi_updated-heroes": 0,
+    "selected_hero": "npc_dota_hero_antimage",
+    "selected_hero_data": {
+      "name": "npc_dota_hero_antimage",
+      "t": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "abilities": {
+        "ability0": {
+          "name": "antimage_mana_break"
+        },
+        "ability1": {
+          "name": "antimage_blink"
+        },
+        "ability2": {
+          "name": "antimage_counterspell"
+        },
+        "ability3": {
+          "name": "antimage_mana_void"
+        }
+      },
+      "items": {
+        "slot0": {
+          "name": "item_branches"
+        },
+        "slot1": {
+          "name": "item_quelling_blade"
+        },
+        "slot2": {
+          "name": "item_branches"
+        },
+        "slot3": {
+          "name": "item_tango"
+        },
+        "slot4": {
+          "name": "item_circlet"
+        },
+        "slot5": {
+          "name": "item_slippers"
+        },
+        "neutral0": {
+          "name": "empty"
+        }
+      },
+      "base_ability_count": 4
+    },
+    "gsi_updated": 1713366736167
+  }
+}

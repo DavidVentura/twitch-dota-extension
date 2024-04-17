@@ -1,0 +1,439 @@
+{
+  "error": "",
+  "active_game": {
+    "heroes": [
+      "npc_dota_hero_life_stealer",
+      "npc_dota_hero_marci",
+      "npc_dota_hero_bane",
+      "npc_dota_hero_leshrac",
+      "npc_dota_hero_enigma",
+      "npc_dota_hero_morphling",
+      "npc_dota_hero_dragon_knight",
+      "npc_dota_hero_pangolier",
+      "npc_dota_hero_shadow_demon",
+      "npc_dota_hero_dark_willow"
+    ],
+    "gsi_state": "spectating",
+    "hero_data": {
+      "npc_dota_hero_life_stealer": {
+        "t": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "item_quelling_blade"
+          },
+          "slot1": {
+            "name": "item_bracer"
+          },
+          "slot2": {
+            "name": "item_orb_of_corrosion"
+          },
+          "slot3": {
+            "name": "item_sange"
+          },
+          "slot4": {
+            "name": "item_phase_boots"
+          },
+          "slot5": {
+            "name": "item_radiance"
+          },
+          "neutral0": {
+            "name": "item_lance_of_pursuit"
+          }
+        }
+      },
+      "npc_dota_hero_marci": {
+        "t": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "item_null_talisman"
+          },
+          "slot1": {
+            "name": "item_oblivion_staff"
+          },
+          "slot2": {
+            "name": "item_magic_wand"
+          },
+          "slot3": {
+            "name": "item_phase_boots"
+          },
+          "slot4": {
+            "name": "item_smoke_of_deceit"
+          },
+          "slot5": {
+            "name": "empty"
+          },
+          "neutral0": {
+            "name": "item_occult_bracelet"
+          }
+        }
+      },
+      "npc_dota_hero_bane": {
+        "t": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "empty"
+          },
+          "slot1": {
+            "name": "item_magic_stick"
+          },
+          "slot2": {
+            "name": "item_ward_sentry"
+          },
+          "slot3": {
+            "name": "item_aether_lens"
+          },
+          "slot4": {
+            "name": "item_boots"
+          },
+          "slot5": {
+            "name": "item_wind_lace"
+          },
+          "neutral0": {
+            "name": "item_eye_of_the_vizier"
+          }
+        }
+      },
+      "npc_dota_hero_leshrac": {
+        "t": [
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "item_arcane_boots"
+          },
+          "slot1": {
+            "name": "item_bottle"
+          },
+          "slot2": {
+            "name": "item_magic_wand"
+          },
+          "slot3": {
+            "name": "item_bloodstone"
+          },
+          "slot4": {
+            "name": "item_kaya"
+          },
+          "slot5": {
+            "name": "item_wind_lace"
+          },
+          "neutral0": {
+            "name": "item_pupils_gift"
+          }
+        }
+      },
+      "npc_dota_hero_enigma": {
+        "t": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "item_spirit_vessel"
+          },
+          "slot1": {
+            "name": "item_blink"
+          },
+          "slot2": {
+            "name": "item_magic_wand"
+          },
+          "slot3": {
+            "name": "item_tranquil_boots"
+          },
+          "slot4": {
+            "name": "item_wind_lace"
+          },
+          "slot5": {
+            "name": "empty"
+          },
+          "neutral0": {
+            "name": "item_arcane_ring"
+          }
+        }
+      },
+      "npc_dota_hero_morphling": {
+        "t": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "item_magic_wand"
+          },
+          "slot1": {
+            "name": "item_yasha"
+          },
+          "slot2": {
+            "name": "item_power_treads"
+          },
+          "slot3": {
+            "name": "item_vladmir"
+          },
+          "slot4": {
+            "name": "item_wind_lace"
+          },
+          "slot5": {
+            "name": "item_diadem"
+          },
+          "neutral0": {
+            "name": "item_vambrace"
+          }
+        }
+      },
+      "npc_dota_hero_dragon_knight": {
+        "t": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "item_branches"
+          },
+          "slot1": {
+            "name": "item_quelling_blade"
+          },
+          "slot2": {
+            "name": "item_oblivion_staff"
+          },
+          "slot3": {
+            "name": "item_blink"
+          },
+          "slot4": {
+            "name": "item_bracer"
+          },
+          "slot5": {
+            "name": "item_power_treads"
+          },
+          "neutral0": {
+            "name": "item_unstable_wand"
+          }
+        }
+      },
+      "npc_dota_hero_pangolier": {
+        "t": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "item_arcane_boots"
+          },
+          "slot1": {
+            "name": "item_bottle"
+          },
+          "slot2": {
+            "name": "item_diffusal_blade"
+          },
+          "slot3": {
+            "name": "item_magic_wand"
+          },
+          "slot4": {
+            "name": "item_blight_stone"
+          },
+          "slot5": {
+            "name": "item_ultimate_scepter"
+          },
+          "neutral0": {
+            "name": "item_pupils_gift"
+          }
+        }
+      },
+      "npc_dota_hero_shadow_demon": {
+        "t": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "item_flask"
+          },
+          "slot1": {
+            "name": "item_branches"
+          },
+          "slot2": {
+            "name": "item_ward_sentry"
+          },
+          "slot3": {
+            "name": "empty"
+          },
+          "slot4": {
+            "name": "item_arcane_boots"
+          },
+          "slot5": {
+            "name": "item_magic_wand"
+          },
+          "neutral0": {
+            "name": "item_philosophers_stone"
+          }
+        }
+      },
+      "npc_dota_hero_dark_willow": {
+        "t": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "item_cyclone"
+          },
+          "slot1": {
+            "name": "item_magic_wand"
+          },
+          "slot2": {
+            "name": "item_boots"
+          },
+          "slot3": {
+            "name": "empty"
+          },
+          "slot4": {
+            "name": "item_enchanted_mango"
+          },
+          "slot5": {
+            "name": "item_null_talisman"
+          },
+          "neutral0": {
+            "name": "item_trusty_shovel"
+          }
+        }
+      }
+    },
+    "gsi_updated-heroes": 1713366218615,
+    "selected_hero": "npc_dota_hero_morphling",
+    "selected_hero_data": {
+      "t": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "items": {
+        "slot0": {
+          "name": "item_magic_wand"
+        },
+        "slot1": {
+          "name": "item_yasha"
+        },
+        "slot2": {
+          "name": "item_power_treads"
+        },
+        "slot3": {
+          "name": "item_vladmir"
+        },
+        "slot4": {
+          "name": "item_wind_lace"
+        },
+        "slot5": {
+          "name": "item_diadem"
+        },
+        "slot6": {
+          "name": "item_branches"
+        },
+        "slot7": {
+          "name": "item_branches"
+        },
+        "slot8": {
+          "name": "empty"
+        },
+        "neutral0": {
+          "name": "item_vambrace"
+        }
+      },
+      "name": "npc_dota_hero_morphling",
+      "abilities": {
+        "ability0": {
+          "name": "morphling_waveform"
+        },
+        "ability1": {
+          "name": "morphling_adaptive_strike_agi"
+        },
+        "ability2": {
+          "name": "morphling_adaptive_strike_str"
+        },
+        "ability3": {
+          "name": "morphling_morph_agi"
+        },
+        "ability4": {
+          "name": "morphling_morph_str"
+        },
+        "ability5": {
+          "name": "morphling_replicate"
+        }
+      },
+      "base_ability_count": 6
+    },
+    "gsi_updated": 1713366218615
+  }
+}
