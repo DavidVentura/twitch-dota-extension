@@ -8,7 +8,7 @@ from pathlib import Path
 import dacite
 import httpx
 
-from twitch_dota_layerth.tooltips import Hero, Ability, Item
+from twitch_dota_extension.tooltips import Hero, Ability, Item
 
 
 @dataclass
@@ -109,6 +109,11 @@ class Spectating:
 
 
 @dataclass
+class InvalidResponse:
+    r: dict[str, Any]
+
+
+@dataclass
 class APIError:
     pass
 
@@ -160,23 +165,24 @@ class API:
         url = f"https://{self.cdn_config.domain}/data/{language}/{type_}.json"
         return await self._fetch_json(url)
 
-    async def get_stream_status(self, channel_id: int) -> Playing | APIError | Spectating:
+    async def get_stream_status(self, channel_id: int) -> Playing | APIError | Spectating | InvalidResponse:
         url = f"https://{self.api_config.domain}/data/pubsub/{channel_id}"
         data = await self._fetch_json(url)
 
         return API._from_json(data)
 
     @staticmethod
-    def _from_json(data: dict) -> Playing | APIError | Spectating:
+    def _from_json(data: dict) -> Playing | APIError | Spectating | InvalidResponse:
         assert not data["error"], "not implemented, error management"
-        game = data["active_game"]
-        state = game["gsi_state"]
+        game = data.get("active_game", {})
+        state = game.get("gsi_state", "unpopulated in API")
+
         if state == "playing":
             return dacite.from_dict(data_class=Playing, data=game)
         elif state == "spectating":
             return dacite.from_dict(data_class=Spectating, data=game)
 
-        raise ValueError(f"Unhandled state {state}")
+        return InvalidResponse(r=data)
 
 
 
