@@ -67,7 +67,7 @@ class TalentTree:
         return TalentTree(entries=list_of_groups)
 
 @dataclass
-class ProcessdHeroData:
+class ProcessedHeroData:
     n: str
     name: str
     talent_tree: TalentTree
@@ -81,12 +81,12 @@ class Playing:
     selected_hero: str
     selected_hero_data: HeroData
 
-    def process_data(self, heroes: dict[str, Hero], items) -> 'ProcessdHeroData':
+    def process_data(self, heroes: dict[str, Hero], items) -> 'ProcessedHeroData':
         hero = heroes[self.selected_hero]
         talents = TalentTree.from_parts(hero.talents, self.selected_hero_data.t)
         inv = Inventory.from_parts(self.selected_hero_data.items, items)
 
-        phd = ProcessdHeroData(hero.n, hero.name, talents, hero.abilities, inv)
+        phd = ProcessedHeroData(hero.n, hero.name, talents, hero.abilities, inv)
         return phd
 
 
@@ -119,14 +119,14 @@ class Spectating:
 class SpectatingTournament:
     hero_data: dict[str, TournamentHeroData]
 
-    def process_data(self, heroes: dict[str, Hero], items) -> list['ProcessdHeroData']:
+    def process_data(self, heroes: dict[str, Hero], items) -> list['ProcessedHeroData']:
         ret = []
         for hero_name, hero_state in self.hero_data.items():
             hero = heroes[hero_name]
             talents = TalentTree.from_parts(hero.talents, hero_state.t)
             inv = Inventory.from_parts(hero_state.items, items)
 
-            phd = ProcessdHeroData(hero.n, hero_name, talents, hero.abilities, inv, player=hero_state.p)
+            phd = ProcessedHeroData(hero.n, hero_name, talents, hero.abilities, inv, player=hero_state.p)
             ret.append(phd)
         return ret
 
