@@ -1,0 +1,3203 @@
+[
+  {
+    "n": "npc_dota_hero_morphling",
+    "name": "npc_dota_hero_morphling",
+    "talent_tree": {
+      "entries": [
+        [
+          {
+            "name": "+15% Magic Resistance",
+            "picked": false
+          },
+          {
+            "name": "+250 Waveform Range",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "+16s Morph Duration",
+            "picked": false
+          },
+          {
+            "name": "+15 Agility",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "Waveform Attacks Targets",
+            "picked": false
+          },
+          {
+            "name": "+0.8s Adaptive Strike Stun Duration",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "-40% Waveform Cooldown",
+            "picked": false
+          },
+          {
+            "name": "+35 Strength",
+            "picked": false
+          }
+        ]
+      ]
+    },
+    "abilities": [
+      {
+        "name": "Waveform",
+        "n": "morphling_waveform",
+        "tooltip": {
+          "description": "Morphling dissolves into liquid and surges forward, damaging enemy units in his path.  Morphling is invulnerable during Waveform.",
+          "lore": "A torrential flood takes enemies by force.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": []
+      },
+      {
+        "name": "Adaptive Strike (Agility)",
+        "n": "morphling_adaptive_strike_agi",
+        "tooltip": {
+          "description": "Launches a surge of water toward an enemy unit, dealing base damage plus additional damage based on Morphling's agility times a multiplier.  If Morphling's agility is 50% higher than strength, the maximum agility multiplier is used. Passively grants bonus Agility. \\n\\n Also puts Adaptive Strike (Strength) on a 3 second cooldown.",
+          "lore": "The Morphling calls upon his elements to crush his opponents with waves.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": true,
+        "properties": [
+          {
+            "name": "BASE DAMAGE:",
+            "value": [
+              "55",
+              "65",
+              "75",
+              "85"
+            ]
+          },
+          {
+            "name": "DAMAGE MIN AGI MULTIPLIER:",
+            "value": [
+              "0.5"
+            ]
+          },
+          {
+            "name": "DAMAGE MAX AGI MULTIPLIER:",
+            "value": [
+              "1.0",
+              "1.5",
+              "2.0",
+              "2.5"
+            ]
+          },
+          {
+            "name": "BONUS AGILITY:",
+            "value": [
+              "3",
+              "5",
+              "7",
+              "9"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Adaptive Strike (Strength)",
+        "n": "morphling_adaptive_strike_str",
+        "tooltip": {
+          "description": "Launches a surge of water toward an enemy unit, stunning and knocking back the target based on Morphling's strength. If his strength is 50% higher than his agility, the maximum stun/knockback is dealt. Passively grants bonus Strength. \\n\\n Also puts Adaptive Strike (Agility) on a 3 second cooldown.",
+          "lore": "The Morphling calls upon his elements to crush his opponents with waves.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": true,
+        "properties": [
+          {
+            "name": "STUN MIN:",
+            "value": [
+              "0.5"
+            ]
+          },
+          {
+            "name": "STUN MAX:",
+            "value": [
+              "1.2",
+              "1.6",
+              "2.0",
+              "2.4"
+            ]
+          },
+          {
+            "name": "KNOCKBACK MIN:",
+            "value": [
+              "100"
+            ]
+          },
+          {
+            "name": "KNOCKBACK MAX:",
+            "value": [
+              "500"
+            ]
+          },
+          {
+            "name": "BONUS STRENGTH:",
+            "value": [
+              "3",
+              "5",
+              "7",
+              "9"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Attribute Shift (Agility Gain)",
+        "n": "morphling_morph_agi",
+        "tooltip": {
+          "description": "Morphling shifts its form, pulling points from Strength and pouring them into Agility. The process is reversible.  Additional points in Attribute Shift increase the rate of stat change.",
+          "lore": "Shifting water makes it difficult to discern the nature of Morphling.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": true,
+        "properties": [
+          {
+            "name": "SHIFT RATE:",
+            "value": [
+              "5",
+              "10",
+              "15",
+              "20"
+            ]
+          },
+          {
+            "name": "MANA COST PER SECOND:",
+            "value": [
+              "5",
+              "10",
+              "15",
+              "20"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Attribute Shift (Strength Gain)",
+        "n": "morphling_morph_str",
+        "tooltip": {
+          "description": "Morphling shifts its form, pulling points from Agility and pouring them into Strength. The process is reversible.  Additional points in Attribute Shift increase the rate of stat change.",
+          "lore": "Shifting water makes it difficult to discern the nature of Morphling.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": true,
+        "properties": [
+          {
+            "name": "SHIFT RATE:",
+            "value": [
+              "5",
+              "10",
+              "15",
+              "20"
+            ]
+          },
+          {
+            "name": "MANA COST PER SECOND:",
+            "value": [
+              "5",
+              "10",
+              "15",
+              "20"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Morph",
+        "n": "morphling_replicate",
+        "tooltip": {
+          "description": "Morphling changes his form to match the targeted enemy, gaining their basic abilities. Can be toggled for the duration of the ability.",
+          "lore": "Staring into Morphling produces a reflection that mimics the beholder.",
+          "scepter_description": "Adds an alt-cast to Morph. When enabled, a strong illusion is created of the target hero that can cast all of the hero's basic abilities. If the illusion is alive when Morphling toggles the ability, he will take the place of the illusion, destroying it."
+        },
+        "has_scepter_upgrade": true,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "DURATION:",
+            "value": [
+              "24"
+            ]
+          },
+          {
+            "name": "%ILLUSION OUTGOING DAMAGE:",
+            "value": [
+              "100"
+            ]
+          },
+          {
+            "name": "%ILLUSION INCOMING DAMAGE:",
+            "value": [
+              "300"
+            ]
+          }
+        ]
+      }
+    ],
+    "inventory": {
+      "items": [
+        {
+          "n": "item_magic_wand",
+          "name": "Magic Wand",
+          "active": "[h1]Active: Energy Charge[/h1]Instantly restores [b]15[/b] health and mana per charge stored. \\n\\nMax [b]20[/b] charges. Gains a charge whenever a visible enemy within [b]1200[/b] range uses an ability.",
+          "cooldown": "15.0",
+          "manacost": null,
+          "use": null
+        },
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        },
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        },
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        }
+      ],
+      "neutral_slot": null
+    },
+    "player": "Pure~"
+  },
+  {
+    "n": "npc_dota_hero_kunkka",
+    "name": "npc_dota_hero_kunkka",
+    "talent_tree": {
+      "entries": [
+        [
+          {
+            "name": "Tidebringer applies 60% slow for 1s",
+            "picked": false
+          },
+          {
+            "name": "+25% X Marks the Spot Move Speed",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "+25% Torrent Damage/Knock Up Duration",
+            "picked": false
+          },
+          {
+            "name": "+45 Damage",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "-4s Torrent Cooldown",
+            "picked": false
+          },
+          {
+            "name": "+70% Tidebringer Cleave",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "Ghostship Fleet",
+            "picked": false
+          },
+          {
+            "name": "-2s Tidebringer Cooldown",
+            "picked": false
+          }
+        ]
+      ]
+    },
+    "abilities": [
+      {
+        "name": "Torrent",
+        "n": "kunkka_torrent",
+        "tooltip": {
+          "description": "Summons a rising torrent that, after a short delay, hurls enemy units into the sky, stunning, dealing damage and slowing movement speed.",
+          "lore": "An ancestral rush of water explodes from the center of the world, called upon by the Admiral.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": true,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "RADIUS:",
+            "value": [
+              "225"
+            ]
+          },
+          {
+            "name": "%MOVE SLOW:",
+            "value": [
+              "-40"
+            ]
+          },
+          {
+            "name": "SLOW DURATION:",
+            "value": [
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          {
+            "name": "STUN DURATION:",
+            "value": [
+              "1.6"
+            ]
+          },
+          {
+            "name": "DELAY:",
+            "value": [
+              "1.6",
+              "1.6",
+              "1.6",
+              "1.6"
+            ]
+          },
+          {
+            "name": "DAMAGE:",
+            "value": [
+              "80",
+              "160",
+              "240",
+              "320"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Tidebringer",
+        "n": "kunkka_tidebringer",
+        "tooltip": {
+          "description": "Kunkka's legendary sword grants increased damage and cleaves a large area of effect in front of him for a single strike.",
+          "lore": "A lost Claddish soul inhabits Kunkka's trusty Tidebringer, empowering it to destroy demons of the Cataract.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "CLEAVE RANGE:",
+            "value": [
+              "650",
+              "800",
+              "950",
+              "1100"
+            ]
+          },
+          {
+            "name": "DAMAGE BONUS:",
+            "value": [
+              "30",
+              "60",
+              "90",
+              "120"
+            ]
+          },
+          {
+            "name": "%CLEAVE DAMAGE:",
+            "value": [
+              "150"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "X Marks the Spot",
+        "n": "kunkka_x_marks_the_spot",
+        "tooltip": {
+          "description": "Targets a friendly or enemy Hero, marks their position with an X, and returns them to it after several seconds.  Kunkkoiza can trigger the return at any time during the duration. Lasts twice as long on allied heroes.",
+          "lore": "The Admiral's set of arcane abilities includes some that can be used for battle as well as entertainment.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "ENEMY DELAY:",
+            "value": [
+              "4.0"
+            ]
+          },
+          {
+            "name": "ALLIED DELAY:",
+            "value": [
+              "8.0"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Torrent Storm",
+        "n": "kunkka_torrent_storm",
+        "tooltip": {
+          "description": "Releases a visible Torrent in a random area within 1100 range of the target position once every 0.25 for 4.0 seconds.",
+          "lore": "A hundred leagues of dry land couldn't keep these seas at bay.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": true,
+        "has_shard_upgrade": false,
+        "properties": []
+      },
+      {
+        "name": "Tidal Wave",
+        "n": "kunkka_tidal_wave",
+        "tooltip": {
+          "description": "Releases a Tidal Wave that spawns behind Kunkka. Deals damage and drags enemies along it for the duration. Enemies cannot attack while being dragged.",
+          "lore": null,
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "SPEED:",
+            "value": [
+              "700"
+            ]
+          },
+          {
+            "name": "RADIUS:",
+            "value": [
+              "750"
+            ]
+          },
+          {
+            "name": "DAMAGE:",
+            "value": [
+              "180"
+            ]
+          },
+          {
+            "name": "DURATION:",
+            "value": [
+              "1.0"
+            ]
+          },
+          {
+            "name": "KNOCKBACK DISTANCE:",
+            "value": [
+              "600"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ghostship",
+        "n": "kunkka_ghostship",
+        "tooltip": {
+          "description": "Summons a ghostly ship that sails through the battle before smashing apart, damaging and stunning all enemies caught near the wreckage. Allied heroes touched by the Ghostship are given a swig of The Admiral's Rum, receiving bonus movement speed and a delayed reaction to incoming damage.",
+          "lore": "The final ship of the Claddish Navy is nothing but a phantom, but it is all too real to the enemies of the Admiral.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "IMPACT DELAY:",
+            "value": [
+              "3.1"
+            ]
+          },
+          {
+            "name": "RANGE:",
+            "value": [
+              "2000"
+            ]
+          },
+          {
+            "name": "WIDTH:",
+            "value": [
+              "450"
+            ]
+          },
+          {
+            "name": "%RUM BONUS SPEED:",
+            "value": [
+              "15"
+            ]
+          },
+          {
+            "name": "RUM DURATION:",
+            "value": [
+              "10"
+            ]
+          },
+          {
+            "name": "STUN DURATION:",
+            "value": [
+              "1.2"
+            ]
+          },
+          {
+            "name": "%DAMAGE DELAYED:",
+            "value": [
+              "35"
+            ]
+          }
+        ]
+      }
+    ],
+    "inventory": {
+      "items": [
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        },
+        {
+          "n": "item_gauntlets",
+          "name": "Gauntlets of Strength",
+          "active": null,
+          "cooldown": null,
+          "manacost": null,
+          "use": null
+        },
+        {
+          "n": "item_circlet",
+          "name": "Circlet",
+          "active": null,
+          "cooldown": null,
+          "manacost": null,
+          "use": null
+        },
+        {
+          "n": "item_gauntlets",
+          "name": "Gauntlets of Strength",
+          "active": null,
+          "cooldown": null,
+          "manacost": null,
+          "use": null
+        },
+        {
+          "n": "item_quelling_blade",
+          "name": "Quelling Blade",
+          "active": "[h1]Active: Chop Tree[/h1] Destroy a target tree. \\n\\nCast Range: [b]350[/b]\\n\\n",
+          "cooldown": "4.0",
+          "manacost": "0",
+          "use": null
+        }
+      ],
+      "neutral_slot": null
+    },
+    "player": "Tobi"
+  },
+  {
+    "n": "npc_dota_hero_disruptor",
+    "name": "npc_dota_hero_disruptor",
+    "talent_tree": {
+      "entries": [
+        [
+          {
+            "name": "-3s Kinetic Field Cooldown",
+            "picked": false
+          },
+          {
+            "name": "+10 Thunder Strike Damage per Strike",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "+275 Glimpse Max Damage",
+            "picked": false
+          },
+          {
+            "name": "+1.5s Static Storm Duration",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "+2s Kinetic Field Duration",
+            "picked": false
+          },
+          {
+            "name": "+.5s Thunder Strike Slow Duration",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "-12s Glimpse Cooldown",
+            "picked": false
+          },
+          {
+            "name": "+200 Static Storm Radius",
+            "picked": false
+          }
+        ]
+      ]
+    },
+    "abilities": [
+      {
+        "name": "Thunder Strike",
+        "n": "disruptor_thunder_strike",
+        "tooltip": {
+          "description": "Repeatedly strikes the targeted unit with lightning.  Each strike damages nearby enemy units in a small radius and slows enemy movement and attack speed by 100% for 0.4 seconds.  Provides vision of its target.",
+          "lore": "Disruptor's charged coils occasionally overload, and a singed armor plate or tuft of fur is the enemy's result.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": true,
+        "properties": [
+          {
+            "name": "RADIUS:",
+            "value": [
+              "240"
+            ]
+          },
+          {
+            "name": "STRIKES:",
+            "value": [
+              "4"
+            ]
+          },
+          {
+            "name": "STRIKE INTERVAL:",
+            "value": [
+              "2.0"
+            ]
+          },
+          {
+            "name": "STRIKE DAMAGE:",
+            "value": [
+              "25",
+              "55",
+              "85",
+              "115"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Glimpse",
+        "n": "disruptor_glimpse",
+        "tooltip": {
+          "description": "Teleports the target hero back to where it was 4 seconds ago.  Instantly kills illusions. Deals damage based on distance glimpsed, with max damage dealt at 1400 distance.",
+          "lore": "Playing with electricity can have unexpected results.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "CAST RANGE:",
+            "value": [
+              "600",
+              "1000",
+              "1400",
+              "1800"
+            ]
+          },
+          {
+            "name": "MIN DAMAGE:",
+            "value": [
+              "25"
+            ]
+          },
+          {
+            "name": "MAX DAMAGE:",
+            "value": [
+              "125",
+              "175",
+              "225",
+              "275"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Kinetic Field",
+        "n": "disruptor_kinetic_field",
+        "tooltip": {
+          "description": "After a short formation time, creates a circular barrier of kinetic energy that enemies can't pass.",
+          "lore": "The stryder is immune to the gale-force winds that will consume its adversaries.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "RADIUS:",
+            "value": [
+              "350"
+            ]
+          },
+          {
+            "name": "FORMATION DELAY:",
+            "value": [
+              "1"
+            ]
+          },
+          {
+            "name": "DURATION:",
+            "value": [
+              "2.6",
+              "3.2",
+              "3.8",
+              "4.4"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Static Storm",
+        "n": "disruptor_static_storm",
+        "tooltip": {
+          "description": "Creates a damaging static storm that also silences all enemy units in the area for the duration.  The damage starts off weak, but increases in power over the duration.",
+          "lore": "A summer squall in Druud is a hardship that only an Oglodi can survive.",
+          "scepter_description": "Mutes items."
+        },
+        "has_scepter_upgrade": true,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "RADIUS:",
+            "value": [
+              "550"
+            ]
+          },
+          {
+            "name": "PULSES:",
+            "value": [
+              "20"
+            ]
+          },
+          {
+            "name": "MAX DAMAGE PER SECOND:",
+            "value": [
+              "200",
+              "275",
+              "350"
+            ]
+          },
+          {
+            "name": "DURATION:",
+            "value": [
+              "6.0"
+            ]
+          }
+        ]
+      }
+    ],
+    "inventory": {
+      "items": [
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        },
+        {
+          "n": "item_tango",
+          "name": "Tango",
+          "active": null,
+          "cooldown": null,
+          "manacost": null,
+          "use": "[h1]Use: Devour[/h1] Consumes a target tree to gain [b]7.0[/b] health regeneration for [b]16.0[/b] seconds. Consuming an Ironwood Tree doubles the heal amount.\\n\\nComes with [b]3[/b] charges.  Can be used on an allied hero to give them one Tango.\\n\\nTree Range: [b]165[/b]"
+        },
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        },
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        },
+        {
+          "n": "item_blood_grenade",
+          "name": "Blood Grenade",
+          "active": null,
+          "cooldown": "10",
+          "manacost": null,
+          "use": "[h1]Use: Throw Grenade[/h1] Throw a grenade at the target area. Enemies in the area will take [b]50[/b] damage on impact, and be slowed by [b]-15[/b]% and take [b]15[/b] damage every [b]1[/b]s for [b]5[/b] seconds. Radius [b][object Object][/b]. "
+        },
+        {
+          "n": "item_enchanted_mango",
+          "name": "Enchanted Mango",
+          "active": null,
+          "cooldown": null,
+          "manacost": null,
+          "use": "[h1]Use: Eat Mango[/h1] Instantly restores [b]100[/b] mana.\\n\\nRange: [b]400[/b]"
+        }
+      ],
+      "neutral_slot": null
+    },
+    "player": "Whitemon"
+  },
+  {
+    "n": "npc_dota_hero_hoodwink",
+    "name": "npc_dota_hero_hoodwink",
+    "talent_tree": {
+      "entries": [
+        [
+          {
+            "name": "+40% Scurry Evasion When Active",
+            "picked": false
+          },
+          {
+            "name": "-2s Bushwhack Cooldown",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "+60 Bushwhack Damage",
+            "picked": false
+          },
+          {
+            "name": "+2 Acorn Shot Bounces",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "+125 Sharpshooter Max Damage",
+            "picked": false
+          },
+          {
+            "name": "-4 Armor Corruption",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "2 Acorn Shot Charges",
+            "picked": false
+          },
+          {
+            "name": "+135 Bushwhack Radius",
+            "picked": false
+          }
+        ]
+      ]
+    },
+    "abilities": [
+      {
+        "name": "Acorn Shot",
+        "n": "hoodwink_acorn_shot",
+        "tooltip": {
+          "description": "Fires Hoodwink's attack with an acorn at the target unit.  The acorn bounces to nearby targets, slowing them and dealing a percentage of Hoodwink's attack with bonus damage.\\nIf point targeted, a tree is created at the target position and the acorn will bounce to nearby targets.  The ability may be placed on alt-cast to force this behavior.",
+          "lore": "Though she'll make do with almost anything, Oak and Ironwood acorns make the most effective projectiles -- and the bulk of Hoodwink's stash.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "BONUS ATTACK RANGE:",
+            "value": [
+              "125",
+              "200",
+              "275",
+              "350"
+            ]
+          },
+          {
+            "name": "BONUS DAMAGE:",
+            "value": [
+              "55",
+              "90",
+              "125",
+              "160"
+            ]
+          },
+          {
+            "name": "%BASE DAMAGE:",
+            "value": [
+              "75"
+            ]
+          },
+          {
+            "name": "BOUNCE COUNT:",
+            "value": [
+              "2",
+              "3",
+              "4",
+              "5"
+            ]
+          },
+          {
+            "name": "SLOW DURATION:",
+            "value": [
+              "0.35"
+            ]
+          },
+          {
+            "name": "%MOVEMENT SLOW:",
+            "value": [
+              "100"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Bushwhack",
+        "n": "hoodwink_bushwhack",
+        "tooltip": {
+          "description": "Tosses a net trap that stuns enemies if they are near a tree in the area.  Affected enemies take damage over time and are pulled towards the tree nearest to them within the target area, and have their vision reduced to 0 for the duration of the stun.",
+          "lore": "Hoodwink favors Ironwood groves for ambushes, but the wary step carefully in all areas of the mistwoods.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "RADIUS:",
+            "value": [
+              "265"
+            ]
+          },
+          {
+            "name": "STUN DURATION:",
+            "value": [
+              "1.4",
+              "1.6",
+              "1.8",
+              "2.0"
+            ]
+          },
+          {
+            "name": "TOTAL DAMAGE:",
+            "value": [
+              "90",
+              "180",
+              "270",
+              "360"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Scurry",
+        "n": "hoodwink_scurry",
+        "tooltip": {
+          "description": "Hoodwink passively has a chance to evade physical attacks while near trees.  When activated, Hoodwink gains bonus movement speed, attack and cast range, phased movement, and tree-walking for a brief time.",
+          "lore": "There's not a nook or cranny in the Wood Tomo'kan out of reach of Hoodwink's paws.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "EVASION RADIUS:",
+            "value": [
+              "275"
+            ]
+          },
+          {
+            "name": "%BONUS MOVEMENT SPEED:",
+            "value": [
+              "20",
+              "25",
+              "30",
+              "35"
+            ]
+          },
+          {
+            "name": "BUFF DURATION:",
+            "value": [
+              "3.5",
+              "4.0",
+              "4.5",
+              "5.0"
+            ]
+          },
+          {
+            "name": "%EVASION:",
+            "value": [
+              "15",
+              "20",
+              "25",
+              "30"
+            ]
+          },
+          {
+            "name": "ACTIVE CAST RANGE:",
+            "value": [
+              "50",
+              "100",
+              "150",
+              "200"
+            ]
+          },
+          {
+            "name": "ACTIVE ATTACK RANGE:",
+            "value": [
+              "50",
+              "100",
+              "150",
+              "200"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Decoy",
+        "n": "hoodwink_decoy",
+        "tooltip": {
+          "description": "Hoodwink turns invisible, increasing her movement speed, and creates a decoy illusion that starts aiming a decreased damage Sharpshooter at the nearest enemy hero. If the illusion is attacked or hit by a targeted ability, it is destroyed and it throws a lesser bushwhack towards the enemy.",
+          "lore": null,
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "ILLUSION DURATION:",
+            "value": [
+              "6.0"
+            ]
+          },
+          {
+            "name": "BUSHWHACK RADIUS:",
+            "value": [
+              "250"
+            ]
+          },
+          {
+            "name": "BUSHWHACK DURATION:",
+            "value": [
+              "1.6"
+            ]
+          },
+          {
+            "name": "%MOVEMENT SPEED:",
+            "value": [
+              "15"
+            ]
+          },
+          {
+            "name": "%SHARPSHOOTER DAMAGE:",
+            "value": [
+              "60"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Hunter's Boomerang",
+        "n": "hoodwink_hunters_boomerang",
+        "tooltip": {
+          "description": "Tosses a boomerang in an arc. Upon contact, it returns to Hoodwink.  The boomerang will deal damage as it passes through or hits enemies, and apply a Hunter's Mark that causes affected enemies to be slowed and be more vulnerable to spell damage.",
+          "lore": null,
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "RADIUS:",
+            "value": [
+              "150"
+            ]
+          },
+          {
+            "name": "DAMAGE:",
+            "value": [
+              "200"
+            ]
+          },
+          {
+            "name": "MARK DURATION:",
+            "value": [
+              "7.0"
+            ]
+          },
+          {
+            "name": "%MOVEMENT SLOW:",
+            "value": [
+              "20"
+            ]
+          },
+          {
+            "name": "%INCOMING SPELL DAMAGE:",
+            "value": [
+              "20"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Sharpshooter",
+        "n": "hoodwink_sharpshooter",
+        "tooltip": {
+          "description": "Hoodwink charges up and fires a deadly bolt from her crossbow, dealing heavy damage, break and slow to an enemy Hero.  The damage and debuff duration scale up to max after 3.0 seconds, and the bolt is fired automatically after 5.0 seconds.\\nHoodwink is knocked backwards for a distance of 350 from the force of the shot. Creeps hit by the bolt are damaged for half the values.",
+          "lore": "While her first arbalest was a chance discovery, Hoodwink now takes great care in carving and caring for her own -- of course with some necessary components pilfered or otherwise cleverly procured.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": true,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "ARROW SPEED:",
+            "value": [
+              "2200"
+            ]
+          },
+          {
+            "name": "MAX WIND-UP TIME:",
+            "value": [
+              "3.0"
+            ]
+          },
+          {
+            "name": "MAX DAMAGE:",
+            "value": [
+              "550",
+              "900",
+              "1250"
+            ]
+          },
+          {
+            "name": "MAX DEBUFF DURATION:",
+            "value": [
+              "5.0"
+            ]
+          },
+          {
+            "name": "%MOVE SLOW:",
+            "value": [
+              "30",
+              "40",
+              "50"
+            ]
+          }
+        ]
+      }
+    ],
+    "inventory": {
+      "items": [
+        {
+          "n": "item_faerie_fire",
+          "name": "Faerie Fire",
+          "active": null,
+          "cooldown": "5.0",
+          "manacost": null,
+          "use": "[h1]Use: Imbue[/h1] Instantly restores [b]85[/b] health."
+        },
+        {
+          "n": "item_blood_grenade",
+          "name": "Blood Grenade",
+          "active": null,
+          "cooldown": "10",
+          "manacost": null,
+          "use": "[h1]Use: Throw Grenade[/h1] Throw a grenade at the target area. Enemies in the area will take [b]50[/b] damage on impact, and be slowed by [b]-15[/b]% and take [b]15[/b] damage every [b]1[/b]s for [b]5[/b] seconds. Radius [b][object Object][/b]. "
+        },
+        {
+          "n": "item_tango",
+          "name": "Tango",
+          "active": null,
+          "cooldown": null,
+          "manacost": null,
+          "use": "[h1]Use: Devour[/h1] Consumes a target tree to gain [b]7.0[/b] health regeneration for [b]16.0[/b] seconds. Consuming an Ironwood Tree doubles the heal amount.\\n\\nComes with [b]3[/b] charges.  Can be used on an allied hero to give them one Tango.\\n\\nTree Range: [b]165[/b]"
+        },
+        {
+          "n": "item_circlet",
+          "name": "Circlet",
+          "active": null,
+          "cooldown": null,
+          "manacost": null,
+          "use": null
+        },
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        },
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        }
+      ],
+      "neutral_slot": null
+    },
+    "player": "9Class"
+  },
+  {
+    "n": "npc_dota_hero_zuus",
+    "name": "npc_dota_hero_zuus",
+    "talent_tree": {
+      "entries": [
+        [
+          {
+            "name": "-4s Heavenly Jump Cooldown",
+            "picked": false
+          },
+          {
+            "name": "+250 Health",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "+30 Movement Speed after Heavenly Jump",
+            "picked": false
+          },
+          {
+            "name": "+1 Heavenly Jump Target",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "+6% Arc Lightning Current Health As Damage",
+            "picked": false
+          },
+          {
+            "name": "+0.5s Lightning Bolt Ministun",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "325 AoE Lightning Bolt",
+            "picked": false
+          },
+          {
+            "name": "+150 Thundergod's Wrath Flat Damage",
+            "picked": false
+          }
+        ]
+      ]
+    },
+    "abilities": [
+      {
+        "name": "Arc Lightning",
+        "n": "zuus_arc_lightning",
+        "tooltip": {
+          "description": "Hurls a bolt of lightning that leaps through nearby enemy units that deal a base damage and a percentage of their current health.",
+          "lore": "Arc Lightning is Zeus' favorite spell to use against puny mortals.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "BASE DAMAGE:",
+            "value": [
+              "85",
+              "110",
+              "135",
+              "160"
+            ]
+          },
+          {
+            "name": "JUMPS:",
+            "value": [
+              "5",
+              "7",
+              "9",
+              "15"
+            ]
+          },
+          {
+            "name": "%CURRENT HEALTH AS DAMAGE:",
+            "value": [
+              "3",
+              "4",
+              "5",
+              "6"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lightning Bolt",
+        "n": "zuus_lightning_bolt",
+        "tooltip": {
+          "description": "Calls down a bolt of lightning to strike an enemy unit, causing damage and a mini-stun. When cast, Lightning Bolt briefly provides unobstructed vision and True Sight around the target in a 750 radius. Can be cast on the ground, affecting the closest enemy hero in 325 range. Deals 100% more damage to creeps.",
+          "lore": "A shocking punishment for rebellious heathen.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "SIGHT RADIUS:",
+            "value": [
+              "750"
+            ]
+          },
+          {
+            "name": "SIGHT DURATION:",
+            "value": [
+              "5"
+            ]
+          },
+          {
+            "name": "MINISTUN DURATION:",
+            "value": [
+              "0.35"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Heavenly Jump",
+        "n": "zuus_heavenly_jump",
+        "tooltip": {
+          "description": "Zeus performs a Heavenly Jump, leaping forward and shocking the closest visible nearby enemy (prioritizing heroes), dealing damage as well as reducing their movement and attack speed. Zeus gets 900 unobstructed vision around him for 3 seconds.",
+          "lore": null,
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "DAMAGE:",
+            "value": [
+              "25",
+              "50",
+              "75",
+              "100"
+            ]
+          },
+          {
+            "name": "DISTANCE:",
+            "value": [
+              "500"
+            ]
+          },
+          {
+            "name": "RANGE:",
+            "value": [
+              "700",
+              "800",
+              "900",
+              "1000"
+            ]
+          },
+          {
+            "name": "DURATION:",
+            "value": [
+              "1.6"
+            ]
+          },
+          {
+            "name": "%MOVE SPEED SLOW:",
+            "value": [
+              "80"
+            ]
+          },
+          {
+            "name": "ATTACK SPEED SLOW:",
+            "value": [
+              "100"
+            ]
+          },
+          {
+            "name": "TARGETS:",
+            "value": [
+              "1"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Nimbus",
+        "n": "zuus_cloud",
+        "tooltip": {
+          "description": "Creates a storm cloud anywhere on the map that automatically casts Lightning Bolt on nearby enemies.",
+          "lore": null,
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "DURATION:",
+            "value": [
+              "30"
+            ]
+          },
+          {
+            "name": "LIGHTNING BOLT BASE COOLDOWN:",
+            "value": [
+              "2.5"
+            ]
+          },
+          {
+            "name": "RADIUS:",
+            "value": [
+              "450"
+            ]
+          },
+          {
+            "name": "HITS TO DESTROY:",
+            "value": [
+              "8"
+            ]
+          },
+          {
+            "name": "CREEP HITS TO DESTROY:",
+            "value": [
+              "16"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lightning Hands",
+        "n": "zuus_lightning_hands",
+        "tooltip": {
+          "description": "Zeus gains bonus attack range and his attacks create Arc Lightnings that deal a percentage of its damage. Can be toggled off to stop this effect.",
+          "lore": null,
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "BONUS ATTACK RANGE:",
+            "value": [
+              "100"
+            ]
+          },
+          {
+            "name": "%ARC LIGHTNING DAMAGE:",
+            "value": [
+              "50"
+            ]
+          },
+          {
+            "name": "%ARC LIGHTNING DAMAGE ILLUSIONS:",
+            "value": [
+              "20"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Thundergod's Wrath",
+        "n": "zuus_thundergods_wrath",
+        "tooltip": {
+          "description": "Strikes all enemy heroes with a bolt of lightning, no matter where they may be. Does a flat amount of damage and additional damage based on the max health of the target.\\n\\nThundergod's Wrath also provides True Sight around each hero struck.  If an enemy hero is invisible, it takes no damage, but the True Sight is still created at that hero's location.",
+          "lore": "The Lord of Heaven smites all who oppose him, near or far.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "TRUE SIGHT RADIUS:",
+            "value": [
+              "500"
+            ]
+          },
+          {
+            "name": "DURATION:",
+            "value": [
+              "3.0",
+              "3.0",
+              "3.0",
+              "3.0"
+            ]
+          },
+          {
+            "name": "FLAT DAMAGE:",
+            "value": [
+              "300",
+              "425",
+              "550"
+            ]
+          },
+          {
+            "name": "%MAX HP AS DAMAGE:",
+            "value": [
+              "5",
+              "7.5",
+              "10"
+            ]
+          }
+        ]
+      }
+    ],
+    "inventory": {
+      "items": [
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        },
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        },
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        }
+      ],
+      "neutral_slot": null
+    },
+    "player": "Topson"
+  },
+  {
+    "n": "npc_dota_hero_enchantress",
+    "name": "npc_dota_hero_enchantress",
+    "talent_tree": {
+      "entries": [
+        [
+          {
+            "name": "+10 Enchanted Creep Armor",
+            "picked": false
+          },
+          {
+            "name": "+30 Movespeed during Nature's Attendants",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "+45 Damage",
+            "picked": false
+          },
+          {
+            "name": "+5 Nature's Attendants Wisps",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "+-65 Untouchable Attack Slow",
+            "picked": false
+          },
+          {
+            "name": "+30% Enchanted Creep Health/Damage",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "+6.5% Impetus Damage",
+            "picked": false
+          },
+          {
+            "name": "+20 Nature's Attendants Heal",
+            "picked": false
+          }
+        ]
+      ]
+    },
+    "abilities": [
+      {
+        "name": "Impetus",
+        "n": "enchantress_impetus",
+        "tooltip": {
+          "description": "Places an enchantment on each attack while activated, causing it to deal additional damage based on how far away the target is.  The farther the target, the greater the damage dealt. Deals double damage to creeps and illusions.",
+          "lore": "While Aiushtha favors peaceful means, she is capable of a magical onslaught from a distance, her spears gaining energy from the natural life around her.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "%DISTANCE DAMAGE:",
+            "value": [
+              "5",
+              "10",
+              "15",
+              "20"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Enchant",
+        "n": "enchantress_enchant",
+        "tooltip": {
+          "description": "Enchantress charms an enemy. If the enemy is a hero, they are slowed and damaged for 5s.\\n\\n If the enemy is a creep, she brings it under her control, increasing its attack damage and max health. Enchantress can control up to 1 creeps at a time for up to 30s. \\n\\nDISPEL TYPE: Basic Dispel",
+          "lore": "A true steward of the forest, Aiushtha befriends all within it - from lowly trolls to powerful centaurs.",
+          "scepter_description": "Enchantress can control multiple creeps at a time."
+        },
+        "has_scepter_upgrade": true,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "%HERO MOVE SLOW:",
+            "value": [
+              "-30",
+              "-40",
+              "-50",
+              "-60"
+            ]
+          },
+          {
+            "name": "HERO DAMAGE PER SECOND:",
+            "value": [
+              "20",
+              "30",
+              "40",
+              "50"
+            ]
+          },
+          {
+            "name": "CREEP MAX HEALTH BONUS:",
+            "value": [
+              "200",
+              "300",
+              "400",
+              "500"
+            ]
+          },
+          {
+            "name": "CREEP ATTACK DAMAGE BONUS:",
+            "value": [
+              "0",
+              "25",
+              "50",
+              "75"
+            ]
+          },
+          {
+            "name": "CREEP MAX LEVEL:",
+            "value": [
+              "4",
+              "5",
+              "6",
+              "6"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Nature's Attendants",
+        "n": "enchantress_natures_attendants",
+        "tooltip": {
+          "description": "A cloud of wisps heals Enchantress and any friendly units nearby. Lasts 9 seconds.",
+          "lore": "Whimsical spirits of the woods possess a healing power that is quite subtle, but gains strength in numbers.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "HEAL PER SECOND:",
+            "value": [
+              "4",
+              "8",
+              "12",
+              "16"
+            ]
+          },
+          {
+            "name": "RADIUS:",
+            "value": [
+              "275",
+              "275",
+              "275",
+              "275"
+            ]
+          },
+          {
+            "name": "WISPS:",
+            "value": [
+              "8"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Sproink",
+        "n": "enchantress_bunny_hop",
+        "tooltip": {
+          "description": "Leaps backward, dodges incoming projectiles, and launches an Impetus attack on the 2 furthest enemy units within Enchantress' attack range + 100.",
+          "lore": "Sproink is as Sproink does.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "DISTANCE:",
+            "value": [
+              "500"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Little Friends",
+        "n": "enchantress_little_friends",
+        "tooltip": {
+          "description": "Enchantress roots an enemy unit. All creeps, ally, enemy and neutral within a radius will gain bonus movement and attack speed and attack the chosen target for 6 seconds.",
+          "lore": null,
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "BONUS ATTACK SPEED:",
+            "value": [
+              "100"
+            ]
+          },
+          {
+            "name": "%BONUS MOVE SPEED:",
+            "value": [
+              "100"
+            ]
+          },
+          {
+            "name": "RADIUS:",
+            "value": [
+              "1200"
+            ]
+          },
+          {
+            "name": "MINIMUM ROOT DURATION:",
+            "value": [
+              "2.0"
+            ]
+          },
+          {
+            "name": "ROOT DURATION PER UNIT:",
+            "value": [
+              "0.5"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Untouchable",
+        "n": "enchantress_untouchable",
+        "tooltip": {
+          "description": "Enchantress beguiles her enemies, slowing their attacks when she is attacked.",
+          "lore": "After attacking Aiushtha, most opponents are overwhelmed with guilt having attacked such a natural beauty.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "ATTACK SLOW:",
+            "value": [
+              "-100",
+              "-150",
+              "-200"
+            ]
+          }
+        ]
+      }
+    ],
+    "inventory": {
+      "items": [
+        {
+          "n": "item_blood_grenade",
+          "name": "Blood Grenade",
+          "active": null,
+          "cooldown": "10",
+          "manacost": null,
+          "use": "[h1]Use: Throw Grenade[/h1] Throw a grenade at the target area. Enemies in the area will take [b]50[/b] damage on impact, and be slowed by [b]-15[/b]% and take [b]15[/b] damage every [b]1[/b]s for [b]5[/b] seconds. Radius [b][object Object][/b]. "
+        },
+        {
+          "n": "item_tango",
+          "name": "Tango",
+          "active": null,
+          "cooldown": null,
+          "manacost": null,
+          "use": "[h1]Use: Devour[/h1] Consumes a target tree to gain [b]7.0[/b] health regeneration for [b]16.0[/b] seconds. Consuming an Ironwood Tree doubles the heal amount.\\n\\nComes with [b]3[/b] charges.  Can be used on an allied hero to give them one Tango.\\n\\nTree Range: [b]165[/b]"
+        },
+        {
+          "n": "item_faerie_fire",
+          "name": "Faerie Fire",
+          "active": null,
+          "cooldown": "5.0",
+          "manacost": null,
+          "use": "[h1]Use: Imbue[/h1] Instantly restores [b]85[/b] health."
+        },
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        },
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        },
+        {
+          "n": "item_ward_sentry",
+          "name": "Sentry Ward",
+          "active": null,
+          "cooldown": "1.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant[/h1] Plants a Sentry Ward, an invisible watcher that grants True Sight, the ability to see invisible enemy units and wards, to any existing allied vision within a [b]1000[/b] radius.\\nLasts [b]7[/b] minutes.\\n\\nDoes not grant ground vision.\\nHold Control to give one Sentry Ward to an allied hero. <br/><br/>Range: [b]500[/b]"
+        }
+      ],
+      "neutral_slot": null
+    },
+    "player": "Sneyking"
+  },
+  {
+    "n": "npc_dota_hero_sven",
+    "name": "npc_dota_hero_sven",
+    "talent_tree": {
+      "entries": [
+        [
+          {
+            "name": "+4s Warcry Duration",
+            "picked": false
+          },
+          {
+            "name": "+15 Attack Speed",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "-15s God's Strength Cooldown",
+            "picked": false
+          },
+          {
+            "name": "+25% Great Cleave Damage",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "+20% God's Strength Slow Resistance",
+            "picked": false
+          },
+          {
+            "name": "+10 Warcry Armor",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "+50% God's Strength Damage",
+            "picked": false
+          },
+          {
+            "name": "+1.0s Storm Hammer Stun Duration",
+            "picked": false
+          }
+        ]
+      ]
+    },
+    "abilities": [
+      {
+        "name": "Storm Hammer",
+        "n": "sven_storm_bolt",
+        "tooltip": {
+          "description": "Sven unleashes his magical gauntlet that deals damage and stuns enemy units in a small area around the target.",
+          "lore": "The Rogue Knight's iron gauntlet, taken from the school of his father, strikes his foes to their core.",
+          "scepter_description": "Increases cast range and applies a basic dispel on the target. Can be cast on invulnerable targets. If alt-cast, it deals an additional 180 damage and Sven travels with the Storm Hammer."
+        },
+        "has_scepter_upgrade": true,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "STUN DURATION:",
+            "value": [
+              "1.0",
+              "1.2",
+              "1.4",
+              "1.6"
+            ]
+          },
+          {
+            "name": "RADIUS:",
+            "value": [
+              "270"
+            ]
+          },
+          {
+            "name": "BONUS CAST RANGE:",
+            "value": [
+              "350"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Great Cleave",
+        "n": "sven_great_cleave",
+        "tooltip": {
+          "description": "Sven strikes with great force, cleaving all nearby enemy units with his attack. Passively grants bonus Strength.",
+          "lore": "The Vigil Knights still seek to reclaim the stolen Outcast Blade from Sven, a weapon capable of cutting wide swaths through lesser warriors.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "%CLEAVE DAMAGE:",
+            "value": [
+              "40",
+              "60",
+              "80",
+              "100"
+            ]
+          },
+          {
+            "name": "STRENGTH BONUS:",
+            "value": [
+              "3",
+              "6",
+              "9",
+              "12"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Warcry",
+        "n": "sven_warcry",
+        "tooltip": {
+          "description": "Sven's Warcry heartens his allied heroes for battle, increasing their armor and movement speed. Lasts 10 seconds.",
+          "lore": "Calling a few lines from the Vigil Codex fortifies Sven's obedience to his rogue code. So poetic!",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": true,
+        "properties": [
+          {
+            "name": "%BONUS SPEED:",
+            "value": [
+              "10",
+              "14",
+              "18",
+              "22"
+            ]
+          },
+          {
+            "name": "BONUS ARMOR:",
+            "value": [
+              "6",
+              "9",
+              "12",
+              "15"
+            ]
+          },
+          {
+            "name": "RADIUS:",
+            "value": [
+              "700"
+            ]
+          },
+          {
+            "name": "DURATION:",
+            "value": [
+              "10"
+            ]
+          },
+          {
+            "name": "PASSIVE BONUS ARMOR:",
+            "value": [
+              "6"
+            ]
+          },
+          {
+            "name": "PASSIVE RADIUS:",
+            "value": [
+              "1200"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "God's Strength",
+        "n": "sven_gods_strength",
+        "tooltip": {
+          "description": "Sven channels his rogue strength, granting bonus damage and slow resistance for 35 seconds.",
+          "lore": "With the strength that shattered the Sacred Helm, the Rogue Knight stands unopposed in melee combat.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "%BONUS DAMAGE:",
+            "value": [
+              "100",
+              "140",
+              "180"
+            ]
+          },
+          {
+            "name": "%SLOW RESISTANCE:",
+            "value": [
+              "30"
+            ]
+          }
+        ]
+      }
+    ],
+    "inventory": {
+      "items": [
+        {
+          "n": "item_quelling_blade",
+          "name": "Quelling Blade",
+          "active": "[h1]Active: Chop Tree[/h1] Destroy a target tree. \\n\\nCast Range: [b]350[/b]\\n\\n",
+          "cooldown": "4.0",
+          "manacost": "0",
+          "use": null
+        },
+        {
+          "n": "item_circlet",
+          "name": "Circlet",
+          "active": null,
+          "cooldown": null,
+          "manacost": null,
+          "use": null
+        },
+        {
+          "n": "item_gauntlets",
+          "name": "Gauntlets of Strength",
+          "active": null,
+          "cooldown": null,
+          "manacost": null,
+          "use": null
+        },
+        {
+          "n": "item_tango",
+          "name": "Tango",
+          "active": null,
+          "cooldown": null,
+          "manacost": null,
+          "use": "[h1]Use: Devour[/h1] Consumes a target tree to gain [b]7.0[/b] health regeneration for [b]16.0[/b] seconds. Consuming an Ironwood Tree doubles the heal amount.\\n\\nComes with [b]3[/b] charges.  Can be used on an allied hero to give them one Tango.\\n\\nTree Range: [b]165[/b]"
+        },
+        {
+          "n": "item_enchanted_mango",
+          "name": "Enchanted Mango",
+          "active": null,
+          "cooldown": null,
+          "manacost": null,
+          "use": "[h1]Use: Eat Mango[/h1] Instantly restores [b]100[/b] mana.\\n\\nRange: [b]400[/b]"
+        },
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        }
+      ],
+      "neutral_slot": null
+    },
+    "player": "skiter"
+  },
+  {
+    "n": "npc_dota_hero_shredder",
+    "name": "npc_dota_hero_shredder",
+    "talent_tree": {
+      "entries": [
+        [
+          {
+            "name": "+0.2 Reactive Armor Regeneration Per Stack",
+            "picked": false
+          },
+          {
+            "name": "+1.5 Mana Regen",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "+2.5% Whirling Death Stat Loss",
+            "picked": false
+          },
+          {
+            "name": "+6 Max / +1 Hero Attack Reactive Armor Stacks",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "+20% Magic Resistance",
+            "picked": false
+          },
+          {
+            "name": "+4% Chakram Slow",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "Second Chakram",
+            "picked": false
+          },
+          {
+            "name": "+1125 Timber Chain Range",
+            "picked": false
+          }
+        ]
+      ]
+    },
+    "abilities": [
+      {
+        "name": "Whirling Death",
+        "n": "shredder_whirling_death",
+        "tooltip": {
+          "description": "Timbersaw whirls extremely sharp edges, damaging enemies and destroying trees around him in an area.  If an enemy hero is affected, it loses some of its primary attribute for a short duration.  Whirling Death will deal bonus damage per tree destroyed.",
+          "lore": "In the case that Rizzrack gets surrounded by the vines and plants of his nightmares, he has an immediate chainsaw defense.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "RADIUS:",
+            "value": [
+              "325"
+            ]
+          },
+          {
+            "name": "DAMAGE:",
+            "value": [
+              "85",
+              "130",
+              "175",
+              "220"
+            ]
+          },
+          {
+            "name": "TREE BONUS DAMAGE:",
+            "value": [
+              "11",
+              "18",
+              "25",
+              "32"
+            ]
+          },
+          {
+            "name": "%STAT LOSS PERCENT:",
+            "value": [
+              "13"
+            ]
+          },
+          {
+            "name": "STAT LOSS DURATION:",
+            "value": [
+              "12",
+              "13",
+              "14",
+              "15"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Timber Chain",
+        "n": "shredder_timber_chain",
+        "tooltip": {
+          "description": "Timbersaw fires a chain that embeds itself in the first tree it hits, pulling him towards it.  Any enemy in the path takes damage.",
+          "lore": "You never know when you might need to escape from malevolent saplings.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "LATCH RANGE:",
+            "value": [
+              "750",
+              "900",
+              "1050",
+              "1200"
+            ]
+          },
+          {
+            "name": "RADIUS:",
+            "value": [
+              "225",
+              "225",
+              "225",
+              "225"
+            ]
+          },
+          {
+            "name": "SPEED:",
+            "value": [
+              "2200",
+              "2400",
+              "2600",
+              "2800"
+            ]
+          },
+          {
+            "name": "DAMAGE:",
+            "value": [
+              "50",
+              "95",
+              "140",
+              "185"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Reactive Armor",
+        "n": "shredder_reactive_armor",
+        "tooltip": {
+          "description": "Each time Timbersaw is attacked, he gains increased health regen and armor. Hero attacks are counted as 3x the amount.",
+          "lore": "The saw-suit is equipped to react to the slightest touch with fortified defenses.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": true,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "BONUS ARMOR:",
+            "value": [
+              "0.4",
+              "0.5",
+              "0.6",
+              "0.7"
+            ]
+          },
+          {
+            "name": "BONUS HP REGEN:",
+            "value": [
+              "0.3",
+              "0.4",
+              "0.5",
+              "0.6"
+            ]
+          },
+          {
+            "name": "MAX STACKS:",
+            "value": [
+              "12",
+              "22",
+              "32",
+              "42"
+            ]
+          },
+          {
+            "name": "STACK DURATION:",
+            "value": [
+              "10",
+              "12",
+              "14",
+              "16"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Second Chakram",
+        "n": "shredder_chakram_2",
+        "tooltip": {
+          "description": "Launches a second independent Chakram.",
+          "lore": "Cut cut cut cut cut cut cut cut cut cut cut!",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": []
+      },
+      {
+        "name": "Flamethrower",
+        "n": "shredder_flamethrower",
+        "tooltip": {
+          "description": "Releases a flame in the direction Timbersaw is facing. Applies a debuff that deals damage per second and slows enemy movement speed. Affects buildings for reduced damage.",
+          "lore": null,
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "DAMAGE PER SECOND:",
+            "value": [
+              "70"
+            ]
+          },
+          {
+            "name": "DURATION:",
+            "value": [
+              "8"
+            ]
+          },
+          {
+            "name": "WIDTH:",
+            "value": [
+              "275"
+            ]
+          },
+          {
+            "name": "RANGE:",
+            "value": [
+              "400"
+            ]
+          },
+          {
+            "name": "%MOVE SLOW:",
+            "value": [
+              "30"
+            ]
+          },
+          {
+            "name": "%BUILDING DAMAGE:",
+            "value": [
+              "40"
+            ]
+          },
+          {
+            "name": "DEBUFF LINGER TIME:",
+            "value": [
+              "2.0"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Chakram",
+        "n": "shredder_chakram",
+        "tooltip": {
+          "description": "Fires Timbersaw's main saw blade at the target location where it will spin in place, dealing damage in an area around it.  Enemies caught in the saw blade will move more slowly for every 5% of health missing. The blade deals damage and cuts down trees in its path when fired and retracted.  While active the ability costs mana, and Timbersaw loses the ability to attack.",
+          "lore": "The ultimate in anti-flora weaponry.",
+          "scepter_description": "Increases Chakram and Second Chakram damage per second."
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "RADIUS:",
+            "value": [
+              "200"
+            ]
+          },
+          {
+            "name": "PASS DAMAGE:",
+            "value": [
+              "110",
+              "155",
+              "200"
+            ]
+          },
+          {
+            "name": "DAMAGE PER SECOND:",
+            "value": [
+              "50",
+              "75",
+              "100"
+            ]
+          },
+          {
+            "name": "%SLOW:",
+            "value": [
+              "5"
+            ]
+          },
+          {
+            "name": "MANA COST PER SECOND:",
+            "value": [
+              "14",
+              "22",
+              "30"
+            ]
+          }
+        ]
+      }
+    ],
+    "inventory": {
+      "items": [
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        },
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        },
+        {
+          "n": "item_tango",
+          "name": "Tango",
+          "active": null,
+          "cooldown": null,
+          "manacost": null,
+          "use": "[h1]Use: Devour[/h1] Consumes a target tree to gain [b]7.0[/b] health regeneration for [b]16.0[/b] seconds. Consuming an Ironwood Tree doubles the heal amount.\\n\\nComes with [b]3[/b] charges.  Can be used on an allied hero to give them one Tango.\\n\\nTree Range: [b]165[/b]"
+        },
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        },
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        },
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        }
+      ],
+      "neutral_slot": null
+    },
+    "player": "Malr1ne"
+  },
+  {
+    "n": "npc_dota_hero_razor",
+    "name": "npc_dota_hero_razor",
+    "talent_tree": {
+      "entries": [
+        [
+          {
+            "name": "+30 Plasma Field Damage",
+            "picked": false
+          },
+          {
+            "name": "+10% Spell Lifesteal",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "+5 Static Link Damage Steal",
+            "picked": false
+          },
+          {
+            "name": "Static Link Steals 1 Armor per Second",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "+25% Storm Surge Slow and Damage",
+            "picked": false
+          },
+          {
+            "name": "--0.10s Eye of the Storm Strike Interval",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "Creates A Second Plasma Field Delayed By 0.8s",
+            "picked": false
+          },
+          {
+            "name": "Static Link Steals Attack Speed",
+            "picked": false
+          }
+        ]
+      ]
+    },
+    "abilities": [
+      {
+        "name": "Plasma Field",
+        "n": "razor_plasma_field",
+        "tooltip": {
+          "description": "Releases a wave of energetic plasma that grows in power as it expands, but also zaps on contraction, slowing and dealing damage to enemy units caught in its path. Damage and slow increases with distance from Razor. The Plasma Field hits each unit twice, once each direction.",
+          "lore": "The Lightning Revenant rules the Underscape with plasmatic power.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "DAMAGE MIN:",
+            "value": [
+              "35",
+              "40",
+              "45",
+              "50"
+            ]
+          },
+          {
+            "name": "DAMAGE MAX:",
+            "value": [
+              "80",
+              "115",
+              "150",
+              "185"
+            ]
+          },
+          {
+            "name": "RADIUS:",
+            "value": [
+              "700"
+            ]
+          },
+          {
+            "name": "%SLOW MIN:",
+            "value": [
+              "5"
+            ]
+          },
+          {
+            "name": "%SLOW MAX:",
+            "value": [
+              "25",
+              "30",
+              "35",
+              "40"
+            ]
+          },
+          {
+            "name": "SLOW DURATION:",
+            "value": [
+              "1.5"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Static Link",
+        "n": "razor_static_link",
+        "tooltip": {
+          "description": "Creates a charged link between Razor and an enemy Hero, stealing damage from the target and giving it to Razor. Allows Razor to attack while moving with the link active.",
+          "lore": "Razor's polarity channels electricity into his being, draining the power of his opposition.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": true,
+        "properties": [
+          {
+            "name": "LINK DURATION:",
+            "value": [
+              "10"
+            ]
+          },
+          {
+            "name": "BUFF DURATION:",
+            "value": [
+              "12",
+              "14",
+              "16",
+              "18"
+            ]
+          },
+          {
+            "name": "DAMAGE DRAIN RATE:",
+            "value": [
+              "5",
+              "10",
+              "15",
+              "20"
+            ]
+          },
+          {
+            "name": "CAST RANGE:",
+            "value": [
+              "550"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Storm Surge",
+        "n": "razor_unstable_current",
+        "tooltip": {
+          "description": "Passively increases Razor's movement speed. There's a chance when attacked, and always when targeted with a spell, to release a forked lightning that strikes the target and other nearby enemies, prioritizing the unit type of the attacker, dealing damage and slowing movement speed.",
+          "lore": "Merely approaching the Lightning Revenant is rewarded with shock therapy.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "%BONUS SPEED:",
+            "value": [
+              "8",
+              "12",
+              "16",
+              "20"
+            ]
+          },
+          {
+            "name": "%CHANCE TO STRIKE:",
+            "value": [
+              "18"
+            ]
+          },
+          {
+            "name": "TARGETS HIT:",
+            "value": [
+              "3"
+            ]
+          },
+          {
+            "name": "DAMAGE:",
+            "value": [
+              "40",
+              "80",
+              "120",
+              "160"
+            ]
+          },
+          {
+            "name": "%MOVEMENT SLOW:",
+            "value": [
+              "25",
+              "30",
+              "35",
+              "40",
+              ""
+            ]
+          },
+          {
+            "name": "SLOW DURATION:",
+            "value": [
+              "1.0"
+            ]
+          },
+          {
+            "name": "STRIKE SEARCH AREA:",
+            "value": [
+              "700"
+            ]
+          },
+          {
+            "name": "STRIKE COOLDOWN:",
+            "value": [
+              "3.0"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Eye of the Storm",
+        "n": "razor_eye_of_the_storm",
+        "tooltip": {
+          "description": "A powerful lightning storm strikes out at enemy units with the lowest health, dealing damage and reducing their armor.",
+          "lore": "Ride the lightning.",
+          "scepter_description": "Causes Eye of the Storm to strike two different units instead of one and can damage structures. When striking buildings, it will only target towers, barracks, and the Ancient."
+        },
+        "has_scepter_upgrade": true,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "RADIUS:",
+            "value": [
+              "500"
+            ]
+          },
+          {
+            "name": "DURATION:",
+            "value": [
+              "30.0"
+            ]
+          },
+          {
+            "name": "STRIKE INTERVAL:",
+            "value": [
+              "0.7",
+              "0.6",
+              "0.5"
+            ]
+          },
+          {
+            "name": "ARMOR REDUCTION:",
+            "value": [
+              "1",
+              "1",
+              "1"
+            ]
+          },
+          {
+            "name": "DAMAGE:",
+            "value": [
+              "60",
+              "75",
+              "90"
+            ]
+          }
+        ]
+      }
+    ],
+    "inventory": {
+      "items": [
+        {
+          "n": "item_tango",
+          "name": "Tango",
+          "active": null,
+          "cooldown": null,
+          "manacost": null,
+          "use": "[h1]Use: Devour[/h1] Consumes a target tree to gain [b]7.0[/b] health regeneration for [b]16.0[/b] seconds. Consuming an Ironwood Tree doubles the heal amount.\\n\\nComes with [b]3[/b] charges.  Can be used on an allied hero to give them one Tango.\\n\\nTree Range: [b]165[/b]"
+        },
+        {
+          "n": "item_magic_stick",
+          "name": "Magic Stick",
+          "active": "[h1]Active: Energy Charge[/h1] Instantly restores [b]15[/b] health and mana per charge stored.\\n\\n Max [b]10[/b] charges. Gains a charge whenever a visible enemy within [b]1200[/b] range uses an ability.",
+          "cooldown": "17.0",
+          "manacost": null,
+          "use": null
+        },
+        {
+          "n": "item_circlet",
+          "name": "Circlet",
+          "active": null,
+          "cooldown": null,
+          "manacost": null,
+          "use": null
+        },
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        },
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        },
+        {
+          "n": "item_branches",
+          "name": "Iron Branch",
+          "active": null,
+          "cooldown": "0.0",
+          "manacost": null,
+          "use": "[h1]Use: Plant Tree[/h1] Targets the ground to plant a happy little tree that lasts for [b]20[/b] seconds.\\n\\nRange: [b]400[/b]"
+        }
+      ],
+      "neutral_slot": null
+    },
+    "player": "AMMAR_THE_F"
+  },
+  {
+    "n": "npc_dota_hero_earth_spirit",
+    "name": "npc_dota_hero_earth_spirit",
+    "talent_tree": {
+      "entries": [
+        [
+          {
+            "name": "+200 Rolling Boulder Distance",
+            "picked": false
+          },
+          {
+            "name": "+10% Spell Amplification",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "+30% Magnetize Damage & Duration",
+            "picked": false
+          },
+          {
+            "name": "+110 Rolling Boulder Damage",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "+100 Boulder Smash Damage",
+            "picked": false
+          },
+          {
+            "name": "-2s Geomagnetic Grip Cooldown",
+            "picked": false
+          }
+        ],
+        [
+          {
+            "name": "Magnetize Undispellable",
+            "picked": false
+          },
+          {
+            "name": "+0.5s Rolling Boulder Stun Duration",
+            "picked": false
+          }
+        ]
+      ]
+    },
+    "abilities": [
+      {
+        "name": "Boulder Smash",
+        "n": "earth_spirit_boulder_smash",
+        "tooltip": {
+          "description": "Earth Spirit smashes the target enemy or ally, sending them in the direction he is facing. If Earth Spirit targets an area, he will smash the nearest unit in a 200 radius, prioritizing Stone Remnants. The travelling unit or Remnant damages all enemy units it hits.  If an enemy is hit by a Stone Remnant, they are also slowed. Stone Remnants travel further than other units. Deals 1.4x damage to creeps.",
+          "lore": "It is with the power of a mountain that Earth Spirit strikes his enemies.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "REMNANT SMASH RADIUS:",
+            "value": [
+              "200"
+            ]
+          },
+          {
+            "name": "DAMAGE:",
+            "value": [
+              "120",
+              "180",
+              "240",
+              "300"
+            ]
+          },
+          {
+            "name": "%SLOW AMOUNT:",
+            "value": [
+              "50"
+            ]
+          },
+          {
+            "name": "SLOW DURATION:",
+            "value": [
+              "1.25",
+              "2.5",
+              "3.25",
+              "4"
+            ]
+          },
+          {
+            "name": "TRAVEL SPEED:",
+            "value": [
+              "900"
+            ]
+          },
+          {
+            "name": "DISTANCE:",
+            "value": [
+              "500.0",
+              "600.0",
+              "700.0",
+              "800.0"
+            ]
+          },
+          {
+            "name": "DISTANCE (REMNANT):",
+            "value": [
+              "2000.0"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Rolling Boulder",
+        "n": "earth_spirit_rolling_boulder",
+        "tooltip": {
+          "description": "Earth Spirit gathers himself into a boulder and, after a 0.6s delay, rolls toward the target location, dealing 60 + 100% STR damage and stunning enemy units. He will stop if he collides with an enemy hero or is stunned. If he rolls over a Stone Remnant, he will travel further and faster, and stun enemies for longer.",
+          "lore": "Calling upon his connection to the land, the Earth Spirit draws loose stone to him, which forms a protective ball that he can use to roll short distances.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "SPEED:",
+            "value": [
+              "1000"
+            ]
+          },
+          {
+            "name": "SPEED (REMNANT):",
+            "value": [
+              "1600"
+            ]
+          },
+          {
+            "name": "DISTANCE:",
+            "value": [
+              "750.0"
+            ]
+          },
+          {
+            "name": "DISTANCE MULTIPLIER (REMNANT):",
+            "value": [
+              "2"
+            ]
+          },
+          {
+            "name": "DAMAGE:",
+            "value": [
+              "60"
+            ]
+          },
+          {
+            "name": "STUN DURATION:",
+            "value": [
+              "0.3",
+              "0.5",
+              "0.7",
+              "0.9"
+            ]
+          },
+          {
+            "name": "ROCK BONUS STUN DURATION:",
+            "value": [
+              "0.3",
+              "0.5",
+              "0.7",
+              "0.9"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Geomagnetic Grip",
+        "n": "earth_spirit_geomagnetic_grip",
+        "tooltip": {
+          "description": "Earth Spirit pulls the target Stone Remnant. Enemies struck by the gripped target will be silenced and take damage.",
+          "lore": "Like calls to like. Even the minerals found in the blood and bones of living beings are not immune to the call of the Earth Spirit.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": true,
+        "properties": [
+          {
+            "name": "REMNANT DAMAGE:",
+            "value": [
+              "50",
+              "100",
+              "150",
+              "200"
+            ]
+          },
+          {
+            "name": "SILENCE DURATION:",
+            "value": [
+              "2",
+              "2.5",
+              "3",
+              "3.5"
+            ]
+          },
+          {
+            "name": "HERO PULL SPEED:",
+            "value": [
+              "600"
+            ]
+          },
+          {
+            "name": "REMNANT PULL SPEED:",
+            "value": [
+              "900"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Stone Remnant",
+        "n": "earth_spirit_stone_caller",
+        "tooltip": {
+          "description": "Call a Stone Remnant to the target location.  Stone Remnants have no vision and are invulnerable, and can be used with Earth Spirit's abilities.  Calling a Stone Remnant consumes a charge, which recharge over time. Gains additional charges every 5 hero levels.",
+          "lore": "Earth Spirit calls forth a remnant of his stone army, long buried with him in the dark embrace of the Earth.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "DURATION:",
+            "value": [
+              "60.0"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Enchant Remnant",
+        "n": "earth_spirit_petrify",
+        "tooltip": {
+          "description": "Earth Spirit temporarily enchants a hero, granting them the properties of a Stone Remnant. After a short duration the remnant shatters, releasing the hero and damaging nearby enemies. < br>\\nCan be cast on Stone Remnants. Has a 5 second cooldown when used that way.\\nHas a larger cast range when cast on an ally hero.",
+          "lore": "Kaolin uses the elemental power of the Earth to temporarily petrify living beings, so that they might be conscripted into his stone funerary army.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": true,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "REMNANT DURATION:",
+            "value": [
+              "2.4"
+            ]
+          },
+          {
+            "name": "SHATTER DAMAGE:",
+            "value": [
+              "450"
+            ]
+          },
+          {
+            "name": "SHATTER RADIUS:",
+            "value": [
+              "450"
+            ]
+          },
+          {
+            "name": "CAST RANGE ON ALLIES:",
+            "value": [
+              "500"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Magnetize",
+        "n": "earth_spirit_magnetize",
+        "tooltip": {
+          "description": "Magnetizes units in a small nearby area, causing them to take damage for a short duration. Magnetized heroes cause nearby Stone Remnants to explode, destroying the remnant and refreshing Magnetize's duration on all nearby enemies. This process can repeat multiple times. If an enemy hero is affected by Geomagnetic Grip or Boulder Smash, all magnetized heroes share the effects.",
+          "lore": "At the Earth Spirit's call, the minerals in the blood and bones of his enemies rebel against the bodies they find themselves in.",
+          "scepter_description": null
+        },
+        "has_scepter_upgrade": false,
+        "has_shard_upgrade": false,
+        "properties": [
+          {
+            "name": "RADIUS:",
+            "value": [
+              "350"
+            ]
+          },
+          {
+            "name": "DAMAGE PER SECOND:",
+            "value": [
+              "40",
+              "80",
+              "120"
+            ]
+          },
+          {
+            "name": "MAGNETIZE DURATION:",
+            "value": [
+              "6.0"
+            ]
+          },
+          {
+            "name": "REMNANT REFRESH RADIUS:",
+            "value": [
+              "400"
+            ]
+          },
+          {
+            "name": "REMNANT EXPLOSION RADIUS:",
+            "value": [
+              "600"
+            ]
+          }
+        ]
+      }
+    ],
+    "inventory": {
+      "items": [
+        {
+          "n": "item_tango",
+          "name": "Tango",
+          "active": null,
+          "cooldown": null,
+          "manacost": null,
+          "use": "[h1]Use: Devour[/h1] Consumes a target tree to gain [b]7.0[/b] health regeneration for [b]16.0[/b] seconds. Consuming an Ironwood Tree doubles the heal amount.\\n\\nComes with [b]3[/b] charges.  Can be used on an allied hero to give them one Tango.\\n\\nTree Range: [b]165[/b]"
+        },
+        {
+          "n": "item_blood_grenade",
+          "name": "Blood Grenade",
+          "active": null,
+          "cooldown": "10",
+          "manacost": null,
+          "use": "[h1]Use: Throw Grenade[/h1] Throw a grenade at the target area. Enemies in the area will take [b]50[/b] damage on impact, and be slowed by [b]-15[/b]% and take [b]15[/b] damage every [b]1[/b]s for [b]5[/b] seconds. Radius [b][object Object][/b]. "
+        },
+        {
+          "n": "item_faerie_fire",
+          "name": "Faerie Fire",
+          "active": null,
+          "cooldown": "5.0",
+          "manacost": null,
+          "use": "[h1]Use: Imbue[/h1] Instantly restores [b]85[/b] health."
+        },
+        {
+          "n": "item_orb_of_venom",
+          "name": "Orb of Venom",
+          "active": null,
+          "cooldown": null,
+          "manacost": null,
+          "use": null
+        }
+      ],
+      "neutral_slot": null
+    },
+    "player": "Cr1t-"
+  }
+]

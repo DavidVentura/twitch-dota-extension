@@ -1,0 +1,450 @@
+{
+  "error": "",
+  "active_game": {
+    "gsi_state": "spectating",
+    "matchid": "7704262571",
+    "clock_time": -20,
+    "hero_data": {
+      "npc_dota_hero_morphling": {
+        "p": "Pure~",
+        "lvl": 1,
+        "t": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "item_magic_wand"
+          },
+          "slot1": {
+            "name": "item_branches"
+          },
+          "slot2": {
+            "name": "item_branches"
+          },
+          "slot3": {
+            "name": "item_branches"
+          },
+          "slot4": {
+            "name": "empty"
+          },
+          "slot5": {
+            "name": "empty"
+          },
+          "neutral0": {
+            "name": "empty"
+          }
+        },
+        "aghs": [
+          0,
+          0
+        ]
+      },
+      "npc_dota_hero_kunkka": {
+        "p": "Tobi",
+        "lvl": 1,
+        "t": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "item_branches"
+          },
+          "slot1": {
+            "name": "item_gauntlets"
+          },
+          "slot2": {
+            "name": "item_circlet"
+          },
+          "slot3": {
+            "name": "item_gauntlets"
+          },
+          "slot4": {
+            "name": "empty"
+          },
+          "slot5": {
+            "name": "item_quelling_blade"
+          },
+          "neutral0": {
+            "name": "empty"
+          }
+        },
+        "aghs": [
+          0,
+          0
+        ]
+      },
+      "npc_dota_hero_disruptor": {
+        "p": "Whitemon",
+        "lvl": 1,
+        "t": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "item_branches"
+          },
+          "slot1": {
+            "name": "item_tango"
+          },
+          "slot2": {
+            "name": "item_branches"
+          },
+          "slot3": {
+            "name": "item_branches"
+          },
+          "slot4": {
+            "name": "item_blood_grenade"
+          },
+          "slot5": {
+            "name": "item_enchanted_mango"
+          },
+          "neutral0": {
+            "name": "empty"
+          }
+        },
+        "aghs": [
+          0,
+          0
+        ]
+      },
+      "npc_dota_hero_hoodwink": {
+        "p": "9Class",
+        "lvl": 1,
+        "t": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "item_faerie_fire"
+          },
+          "slot1": {
+            "name": "item_blood_grenade"
+          },
+          "slot2": {
+            "name": "item_tango"
+          },
+          "slot3": {
+            "name": "item_circlet"
+          },
+          "slot4": {
+            "name": "item_branches"
+          },
+          "slot5": {
+            "name": "item_branches"
+          },
+          "neutral0": {
+            "name": "empty"
+          }
+        },
+        "aghs": [
+          0,
+          0
+        ]
+      },
+      "npc_dota_hero_zuus": {
+        "p": "Topson",
+        "lvl": 1,
+        "t": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "empty"
+          },
+          "slot1": {
+            "name": "empty"
+          },
+          "slot2": {
+            "name": "empty"
+          },
+          "slot3": {
+            "name": "item_branches"
+          },
+          "slot4": {
+            "name": "item_branches"
+          },
+          "slot5": {
+            "name": "item_branches"
+          },
+          "neutral0": {
+            "name": "empty"
+          }
+        },
+        "aghs": [
+          0,
+          0
+        ]
+      },
+      "npc_dota_hero_enchantress": {
+        "p": "Sneyking",
+        "lvl": 1,
+        "t": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "item_blood_grenade"
+          },
+          "slot1": {
+            "name": "item_tango"
+          },
+          "slot2": {
+            "name": "item_faerie_fire"
+          },
+          "slot3": {
+            "name": "item_branches"
+          },
+          "slot4": {
+            "name": "item_branches"
+          },
+          "slot5": {
+            "name": "item_ward_sentry"
+          },
+          "slot6": {
+            "name": "item_branches"
+          },
+          "slot7": {
+            "name": "empty"
+          },
+          "slot8": {
+            "name": "empty"
+          },
+          "neutral0": {
+            "name": "empty"
+          }
+        },
+        "aghs": [
+          0,
+          0
+        ],
+        "abilities": {
+          "ability0": {
+            "name": "enchantress_impetus"
+          },
+          "ability1": {
+            "name": "enchantress_enchant"
+          },
+          "ability2": {
+            "name": "enchantress_natures_attendants"
+          },
+          "ability3": {
+            "name": "enchantress_untouchable"
+          }
+        },
+        "base_ability_count": 4
+      },
+      "npc_dota_hero_sven": {
+        "p": "skiter",
+        "lvl": 1,
+        "t": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "item_quelling_blade"
+          },
+          "slot1": {
+            "name": "item_circlet"
+          },
+          "slot2": {
+            "name": "item_gauntlets"
+          },
+          "slot3": {
+            "name": "item_tango"
+          },
+          "slot4": {
+            "name": "item_enchanted_mango"
+          },
+          "slot5": {
+            "name": "item_branches"
+          },
+          "neutral0": {
+            "name": "empty"
+          }
+        },
+        "aghs": [
+          0,
+          0
+        ]
+      },
+      "npc_dota_hero_shredder": {
+        "p": "Malr1ne",
+        "lvl": 1,
+        "t": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "item_branches"
+          },
+          "slot1": {
+            "name": "item_branches"
+          },
+          "slot2": {
+            "name": "item_tango"
+          },
+          "slot3": {
+            "name": "item_branches"
+          },
+          "slot4": {
+            "name": "item_branches"
+          },
+          "slot5": {
+            "name": "item_branches"
+          },
+          "neutral0": {
+            "name": "empty"
+          }
+        },
+        "aghs": [
+          0,
+          0
+        ]
+      },
+      "npc_dota_hero_razor": {
+        "p": "AMMAR_THE_F",
+        "lvl": 1,
+        "t": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "item_tango"
+          },
+          "slot1": {
+            "name": "item_magic_stick"
+          },
+          "slot2": {
+            "name": "item_circlet"
+          },
+          "slot3": {
+            "name": "item_branches"
+          },
+          "slot4": {
+            "name": "item_branches"
+          },
+          "slot5": {
+            "name": "item_branches"
+          },
+          "neutral0": {
+            "name": "empty"
+          }
+        },
+        "aghs": [
+          0,
+          0
+        ]
+      },
+      "npc_dota_hero_earth_spirit": {
+        "p": "Cr1t-",
+        "lvl": 1,
+        "t": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "items": {
+          "slot0": {
+            "name": "item_tango"
+          },
+          "slot1": {
+            "name": "item_blood_grenade"
+          },
+          "slot2": {
+            "name": "item_faerie_fire"
+          },
+          "slot3": {
+            "name": "item_orb_of_venom"
+          },
+          "slot4": {
+            "name": "empty"
+          },
+          "slot5": {
+            "name": "empty"
+          },
+          "neutral0": {
+            "name": "empty"
+          }
+        },
+        "aghs": [
+          0,
+          0
+        ]
+      }
+    },
+    "selected_hero": "npc_dota_hero_enchantress",
+    "gsi_updated-heroes": 1714052793408,
+    "selected_hero_data": {},
+    "gsi_updated": 1714052793408,
+    "gsi_hero_cooldown": 1714051079909,
+    "heroes": []
+  }
+}
