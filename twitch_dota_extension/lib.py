@@ -37,10 +37,15 @@ class Inventory:
 
 @dataclass
 class HeroData:
-    name: str
     t: list[int]
     items: dict[str, HDItem]
     # base_ability_count: int
+
+@dataclass
+class TournamentHeroData(HeroData):
+    p: str # playername
+    lvl: int
+    aghs: list[int]
 
 @dataclass
 class TalentEntry:
@@ -68,6 +73,7 @@ class ProcessdHeroData:
     talent_tree: TalentTree
     abilities: list[Ability]
     inventory: Inventory
+    player: Optional[str] = None
 
 
 @dataclass
@@ -75,7 +81,7 @@ class Playing:
     selected_hero: str
     selected_hero_data: HeroData
 
-    def process_data(self, heroes, items) -> 'ProcessdHeroData':
+    def process_data(self, heroes: dict[str, Hero], items) -> 'ProcessdHeroData':
         hero = heroes[self.selected_hero]
         talents = TalentTree.from_parts(hero.talents, self.selected_hero_data.t)
         inv = Inventory.from_parts(self.selected_hero_data.items, items)
@@ -96,17 +102,33 @@ class CDNConfig:
 @dataclass
 class APIConfig:
     domain: str
+    tour_domain: str
 
     @staticmethod
     def default() -> "APIConfig":
-        return APIConfig("tooltips.layerth.dev")
+        return APIConfig("tooltips.layerth.dev", "tour-tooltips.layerth.dev")
 
 
 @dataclass
 class Spectating:
     heroes: list[str]
-    hero_data: dict[str, Any]
+    hero_data: dict[str, HeroData]
 
+
+@dataclass
+class SpectatingTournament:
+    hero_data: dict[str, TournamentHeroData]
+
+    def process_data(self, heroes: dict[str, Hero], items) -> list['ProcessdHeroData']:
+        ret = []
+        for hero_name, hero_state in self.hero_data.items():
+            hero = heroes[hero_name]
+            talents = TalentTree.from_parts(hero.talents, hero_state.t)
+            inv = Inventory.from_parts(hero_state.items, items)
+
+            phd = ProcessdHeroData(hero.n, hero_name, talents, hero.abilities, inv, player=hero_state.p)
+            ret.append(phd)
+        return ret
 
 @dataclass
 class InvalidResponse:
@@ -115,7 +137,7 @@ class InvalidResponse:
 
 @dataclass
 class APIError:
-    pass
+    error: str
 
 
 class DataType(enum.Enum):
@@ -165,20 +187,31 @@ class API:
         url = f"https://{self.cdn_config.domain}/data/{language}/{type_}.json"
         return await self._fetch_json(url)
 
-    async def get_stream_status(self, channel_id: int) -> Playing | APIError | Spectating | InvalidResponse:
+    async def get_stream_status(self, channel_id: int) -> Playing | APIError | Spectating | SpectatingTournament | InvalidResponse:
+        MAYBE_IN_TOURNAMENT = "Channel not found. It might take a few minutes for the channel to appear."
         url = f"https://{self.api_config.domain}/data/pubsub/{channel_id}"
         data = await self._fetch_json(url)
 
-        return API._from_json(data)
+        if data.get('error') == MAYBE_IN_TOURNAMENT:
+            print("Attempting to fetch from tournament domain")
+            url_tour = f"https://{self.api_config.tour_domain}/data/pubsub/{channel_id}"
+            data = await self._fetch_json(url_tour)
+
+        r = API._from_json(data)
+        return r
 
     @staticmethod
-    def _from_json(data: dict) -> Playing | APIError | Spectating | InvalidResponse:
-        assert not data["error"], "not implemented, error management"
+    def _from_json(data: dict) -> Playing | APIError | Spectating | SpectatingTournament | InvalidResponse:
+        error = data.get("error")
+        if error:
+            return APIError(error)
         game = data.get("active_game", {})
         state = game.get("gsi_state", "unpopulated in API")
 
         if state == "playing":
             return dacite.from_dict(data_class=Playing, data=game)
+        elif state == "spectating" and game.get('matchid'):  # Tournament
+            return dacite.from_dict(data_class=SpectatingTournament, data=game)
         elif state == "spectating":
             return dacite.from_dict(data_class=Spectating, data=game)
 
@@ -194,17 +227,24 @@ class EnhancedJSONEncoder(json.JSONEncoder):
 
 
 if __name__ == "__main__":
-    api = API()
-    with Path("./data/playing-2.json").open() as fd:
-        # with Path('./data/spectating.json').open() as fd:
-        # with Path('./data/full-heroes.json').open() as fd:
-        data = json.load(fd)
 
-    heroes = api.fetch_heroes()
-    items = api.fetch_items()
-    game_state = api._from_json(data)
-    match game_state:
-        case Playing():
-            phd = game_state.process_data(heroes, items)
+    async def f():
+        api = API()
+        #with Path("./data/playing-2.json").open() as fd:
+        with Path("./data/spectating-tournament.json").open() as fd:
+            # with Path('./data/spectating.json').open() as fd:
+            # with Path('./data/full-heroes.json').open() as fd:
+            data = json.load(fd)
 
-            print(json.dumps(phd, cls=EnhancedJSONEncoder))
+        heroes = await api.fetch_heroes()
+        items = await api.fetch_items()
+        game_state = api._from_json(data)
+        match game_state:
+            case Playing():
+                phd = game_state.process_data(heroes, items)
+            case SpectatingTournament():
+                phd = game_state.process_data(heroes, items)
+
+                print(json.dumps(phd, cls=EnhancedJSONEncoder))
+    import asyncio
+    asyncio.run(f())
