@@ -54,7 +54,7 @@ class TalentEntry:
 
 @dataclass
 class TalentTree:
-    entries: list[tuple[TalentEntry]]
+    entries: list[tuple[TalentEntry, TalentEntry]]
 
     @staticmethod
     def from_parts(talents: list[str], picks: list[int]) -> 'TalentTree':
@@ -81,7 +81,7 @@ class Playing:
     selected_hero: str
     selected_hero_data: HeroData
 
-    def process_data(self, heroes: dict[str, Hero], items) -> 'ProcessedHeroData':
+    def process_data(self, heroes: dict[str, Hero], items) -> ProcessedHeroData:
         hero = heroes[self.selected_hero]
         talents = TalentTree.from_parts(hero.talents, self.selected_hero_data.t)
         inv = Inventory.from_parts(self.selected_hero_data.items, items)
@@ -119,7 +119,7 @@ class Spectating:
 class SpectatingTournament:
     hero_data: dict[str, TournamentHeroData]
 
-    def process_data(self, heroes: dict[str, Hero], items) -> list['ProcessedHeroData']:
+    def process_data(self, heroes: dict[str, Hero], items) -> list[ProcessedHeroData]:
         ret = []
         for hero_name, hero_state in self.hero_data.items():
             hero = heroes[hero_name]
@@ -230,8 +230,8 @@ if __name__ == "__main__":
 
     async def f():
         api = API()
-        #with Path("./data/playing-2.json").open() as fd:
-        with Path("./data/spectating-tournament.json").open() as fd:
+        with Path("./data/playing-2.json").open() as fd:
+        #with Path("./data/spectating-tournament.json").open() as fd:
             # with Path('./data/spectating.json').open() as fd:
             # with Path('./data/full-heroes.json').open() as fd:
             data = json.load(fd)
@@ -242,9 +242,13 @@ if __name__ == "__main__":
         match game_state:
             case Playing():
                 phd = game_state.process_data(heroes, items)
+                fd = open("data/output/playing.json", 'w')
+                print(json.dumps(phd, cls=EnhancedJSONEncoder), file=fd)
+
             case SpectatingTournament():
                 phd = game_state.process_data(heroes, items)
 
-                print(json.dumps(phd, cls=EnhancedJSONEncoder))
+                fd = open("data/output/tournament.json", 'w')
+                print(json.dumps(phd, cls=EnhancedJSONEncoder), file=fd)
     import asyncio
     asyncio.run(f())
