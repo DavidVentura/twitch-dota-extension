@@ -7,6 +7,68 @@ from typing import Optional
 # https://courier.spectral.gg/images/dota/spellicons/faceless_void_time_walk.png
 
 @dataclass
+class Node:
+    tag: str
+    val: str
+
+def markup_to_nodes(s: str) -> list[Node]:
+    ret = []
+    cur = 0
+
+    s = s.replace("[object Object]", "UNKNOWN")
+    cur_tag = None
+    cur_val = ""
+    closing = ''
+    while cur < len(s):
+        char = s[cur]
+        if char == '<':
+            matched_open = True
+            closing = '>'
+        elif char == '[':
+            matched_open = True
+            closing = ']'
+        else:
+            matched_open = False
+
+        if matched_open:
+            tag, _, _ = s[cur+1:].partition(closing)
+            if tag.endswith('/'): # <br/>
+                if cur_val:
+                    ret.append(Node(cur_tag or 'text', cur_val.strip()))
+                ret.append(Node('newline', ''))
+            elif tag.startswith('/'):
+                assert cur_tag is not None
+                ret.append(Node(cur_tag, cur_val.strip()))
+                cur_val = ""
+                cur_tag = None
+            else:
+                if cur_val:
+                    # text nodes between tags
+                    ret.append(Node('text', cur_val.strip()))
+                assert cur_tag is None, s
+                cur_tag = tag
+                cur_val = ""
+            cur = cur + len(tag) + 2
+            continue
+        if char == '\\' and s[cur:cur+2] == '\\n':
+            cur += 2
+            if cur_val:
+                ret.append(Node(cur_tag or 'text', cur_val.strip()))
+            ret.append(Node('newline', ''))
+            cur_val = ""
+            cur_tag = None
+            continue
+        cur_val += char
+        cur += 1
+
+    if cur_val:
+        ret.append(Node(cur_tag or 'text', cur_val.strip()))
+
+    for i in ret:
+        print(i.tag)
+    return ret
+
+@dataclass
 class Property:
     name: str
     value: list[str] | str
@@ -84,18 +146,24 @@ def flatten_talents(d: dict) -> list:
 class Item:
     n: str
     name: str
-    active: Optional[str]
     cooldown: Optional[str]
     manacost: Optional[str]
-    use: Optional[str]
+    cost: Optional[str]
+    active: list[Node]
+    use: list[Node]
+    passive: list[Node]
+    properties: dict[str, str]
 
     @staticmethod
     def from_dict(d: dict) -> "Item":
         return Item(
             n=d["n"],
             name=d["name"],
-            active=d.get("active"),
+            active=markup_to_nodes(d.get("active", "")),
+            use=markup_to_nodes(d.get("use", "")),
+            passive=markup_to_nodes(d.get("passive", "")),
             cooldown=d.get("AbilityCooldown"),
             manacost=d.get("AbilityManaCost"),
-            use=d.get("use"),
+            cost=d.get("ItemCost"),
+            properties={prop['name']: prop['value'] for prop in d.get('properties', [])},
         )

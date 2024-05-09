@@ -1,9 +1,7 @@
 import enum
 import json
-import dataclasses
 from dataclasses import dataclass
 from typing import Optional, Any
-from pathlib import Path
 
 import dacite
 import httpx
@@ -43,7 +41,7 @@ class HeroData:
 
 @dataclass
 class TournamentHeroData(HeroData):
-    p: str # playername
+    p: str
     lvl: int
     aghs: list[int]
 
@@ -73,7 +71,13 @@ class ProcessedHeroData:
     talent_tree: TalentTree
     abilities: list[Ability]
     inventory: Inventory
+
+@dataclass
+class TourProcessedHeroData(ProcessedHeroData):
     player: Optional[str] = None
+    level: Optional[int] = None
+    has_aghs: Optional[bool] = False
+    has_shard: Optional[bool] = False
 
 
 @dataclass
@@ -119,14 +123,16 @@ class Spectating:
 class SpectatingTournament:
     hero_data: dict[str, TournamentHeroData]
 
-    def process_data(self, heroes: dict[str, Hero], items) -> list[ProcessedHeroData]:
+    def process_data(self, heroes: dict[str, Hero], items) -> list[TourProcessedHeroData]:
         ret = []
         for hero_name, hero_state in self.hero_data.items():
             hero = heroes[hero_name]
             talents = TalentTree.from_parts(hero.talents, hero_state.t)
             inv = Inventory.from_parts(hero_state.items, items)
 
-            phd = ProcessedHeroData(hero.n, hero_name, talents, hero.abilities, inv, player=hero_state.p)
+            phd = TourProcessedHeroData(hero.n, hero.name, talents, hero.abilities, inv,
+                                    player=hero_state.p, level=hero_state.lvl,
+                                    has_aghs=bool(hero_state.aghs[0]), has_shard=bool(hero_state.aghs[1]))
             ret.append(phd)
         return ret
 
@@ -216,39 +222,3 @@ class API:
             return dacite.from_dict(data_class=Spectating, data=game)
 
         return InvalidResponse(r=data)
-
-
-
-class EnhancedJSONEncoder(json.JSONEncoder):
-        def default(self, o):
-            if dataclasses.is_dataclass(o):
-                return dataclasses.asdict(o)
-            return super().default(o)
-
-
-if __name__ == "__main__":
-
-    async def f():
-        api = API()
-        with Path("./data/playing-2.json").open() as fd:
-        #with Path("./data/spectating-tournament.json").open() as fd:
-            # with Path('./data/spectating.json').open() as fd:
-            # with Path('./data/full-heroes.json').open() as fd:
-            data = json.load(fd)
-
-        heroes = await api.fetch_heroes()
-        items = await api.fetch_items()
-        game_state = api._from_json(data)
-        match game_state:
-            case Playing():
-                phd = game_state.process_data(heroes, items)
-                fd = open("data/output/playing.json", 'w')
-                print(json.dumps(phd, cls=EnhancedJSONEncoder), file=fd)
-
-            case SpectatingTournament():
-                phd = game_state.process_data(heroes, items)
-
-                fd = open("data/output/tournament.json", 'w')
-                print(json.dumps(phd, cls=EnhancedJSONEncoder), file=fd)
-    import asyncio
-    asyncio.run(f())
