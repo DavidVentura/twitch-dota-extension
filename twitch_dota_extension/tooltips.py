@@ -64,8 +64,6 @@ def markup_to_nodes(s: str) -> list[Node]:
     if cur_val:
         ret.append(Node(cur_tag or 'text', cur_val.strip()))
 
-    for i in ret:
-        print(i.tag)
     return ret
 
 @dataclass
