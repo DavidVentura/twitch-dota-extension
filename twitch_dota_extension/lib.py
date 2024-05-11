@@ -279,9 +279,13 @@ class API:
 
         if data.get("error") == NOT_AVAIL:
             print("Attempting to fetch from PGL domain")
-            pgs = await PGLGameState.from_stream(channel_id)
-            if pgs is not None:
-                return SpectatingPglTournament(pgs)
+            try:
+                pgs = await PGLGameState.from_stream(channel_id)
+            except httpx.ReadTimeout:
+                print("eeek, timeout")
+            else:
+                if pgs is not None:
+                    return SpectatingPglTournament(pgs)
 
         r = API._from_json(data)
         return r
