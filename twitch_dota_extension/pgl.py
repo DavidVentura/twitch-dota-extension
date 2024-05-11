@@ -45,8 +45,13 @@ async def pgl_state_from_aiter(aiter: typing.AsyncIterator[str]) -> PGLGameState
                 # not interested in data
                 continue
 
-            _, _, data = line.partition(":")
-            data = json.loads(data)
+            _, _, raw_data = line.partition(":")
+            try:
+                data = json.loads(raw_data)
+            except json.decoder.JSONDecodeError as e:
+                print(f'tried to decode illegal json: "{raw_data}": {e}')
+                return None
+
             if data is None:
                 continue
             if cur_event == "GameState":
