@@ -102,6 +102,8 @@ class Ability:
     tooltip: Tooltip
     has_scepter_upgrade: bool
     has_shard_upgrade: bool
+    granted_by_scepter: bool
+    granted_by_shard: bool
     properties: list[Property]
 
     @staticmethod
@@ -112,6 +114,8 @@ class Ability:
             tooltip=Tooltip.from_dict(d["tooltips"]),
             has_scepter_upgrade=d.get("HasScepterUpgrade") == "1",
             has_shard_upgrade=d.get("HasShardUpgrade") == "1",
+            granted_by_scepter=d.get("IsGrantedByScepter") == "1",
+            granted_by_shard=d.get("IsGrantedByShard") == "1",
             properties=[Property.from_dict(p) for p in d["properties"]],
         )
 
