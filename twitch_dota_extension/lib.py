@@ -114,10 +114,11 @@ class CDNConfig:
 class APIConfig:
     domain: str
     tour_domain: str
+    pgl_domain: str
 
     @staticmethod
     def default() -> "APIConfig":
-        return APIConfig("tooltips.layerth.dev", "tour-tooltips.layerth.dev")
+        return APIConfig("tooltips.layerth.dev", "tour-tooltips.layerth.dev", "dota2-twitch.pglesports.com")
 
 
 @dataclass
@@ -279,13 +280,10 @@ class API:
 
         if data.get("error") == NOT_AVAIL:
             print("Attempting to fetch from PGL domain")
-            try:
-                pgs = await PGLGameState.from_stream(channel_id)
-            except httpx.ReadTimeout:
-                print("eeek, timeout")
-            else:
-                if pgs is not None:
-                    return SpectatingPglTournament(pgs)
+
+            pgs = await PGLGameState.from_stream(self.api_config.pgl_domain, channel_id)
+            if pgs is not None:
+                return SpectatingPglTournament(pgs)
 
         r = API._from_json(data)
         return r

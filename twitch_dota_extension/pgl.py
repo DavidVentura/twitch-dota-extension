@@ -12,6 +12,7 @@ import json
 # https://dota2-data.pglesports.com/static/talents.json
 events = ["GameState", "HeroList", "PlayerStats", "Heroes", "Abilities", "Inventory"]
 
+
 @dataclass
 class PGLGameState:
     HeroList: list[dict]
@@ -21,29 +22,34 @@ class PGLGameState:
     Inventory: list[dict]
 
     @staticmethod
-    async def from_stream(channel_id: int) -> typing.Union['PGLGameState', None]:
-        url = 'https://dota2-twitch.pglesports.com/base-data'
+    async def from_stream(domain: str, channel_id: int) -> typing.Union["PGLGameState", None]:
         async with httpx.AsyncClient() as client:
-            async with client.stream('GET', url, params={"channel": channel_id}) as r:
-                return await pgl_state_from_aiter(r.aiter_lines())
+            try:
+                async with client.stream(
+                    "GET", f"https://{domain}/base-data", params={"channel": channel_id}, timeout=5.0
+                ) as r:
+                    return await pgl_state_from_aiter(r.aiter_lines())
+            except httpx.ReadTimeout:
+                print("eeek, timeout")
 
-async def pgl_state_from_aiter(aiter: typing.AsyncIterator[str]) -> PGLGameState | None :
+
+async def pgl_state_from_aiter(aiter: typing.AsyncIterator[str]) -> PGLGameState | None:
     cur_event = None
-    d = {e: None for e in events if e != 'GameState'}
+    d = {e: None for e in events if e != "GameState"}
     async for line in aiter:
-        if line.startswith('event:'):
-            _, _, cur_event = line.partition(':')
+        if line.startswith("event:"):
+            _, _, cur_event = line.partition(":")
             cur_event = cur_event.strip()
-        elif line.startswith('data:'):
+        elif line.startswith("data:"):
             if cur_event not in events:
                 # not interested in data
                 continue
 
-            _, _, data = line.partition(':')
+            _, _, data = line.partition(":")
             data = json.loads(data)
             if data is None:
                 continue
-            if cur_event == 'GameState':
+            if cur_event == "GameState":
                 if data.get("state") in ["DRAFTING", "STRATEGY_TIME"]:
                     return None
             else:
