@@ -26,13 +26,14 @@ class Inventory:
     neutral_slot: Optional[Item]
 
     @staticmethod
-    def from_parts(items: dict[str, HDItem], itemdef: dict[str, Item]) -> 'Inventory':
+    def from_parts(items: dict[str, HDItem], itemdef: dict[str, Item]) -> "Inventory":
         items_ = []
         for slot in ["slot0", "slot1", "slot2", "slot3", "slot4", "slot5"]:
-            if items[slot].name != 'empty':
+            if items[slot].name != "empty":
                 items_.append(itemdef[items[slot].name])
-        neutral = itemdef[items["neutral0"].name] if items["neutral0"].name != 'empty' else None
+        neutral = itemdef[items["neutral0"].name] if items["neutral0"].name != "empty" else None
         return Inventory(items_, neutral)
+
 
 @dataclass
 class HeroData:
@@ -40,23 +41,26 @@ class HeroData:
     items: dict[str, HDItem]
     # base_ability_count: int
 
+
 @dataclass
 class TournamentHeroData(HeroData):
     p: str
     lvl: int
     aghs: list[int]
 
+
 @dataclass
 class TalentEntry:
     name: str
     picked: bool
+
 
 @dataclass
 class TalentTree:
     entries: list[tuple[TalentEntry, TalentEntry]]
 
     @staticmethod
-    def from_parts(talents: list[str], picks: list[int]) -> 'TalentTree':
+    def from_parts(talents: list[str], picks: list[int]) -> "TalentTree":
         entries: list[TalentEntry] = []
         for talent, picked in zip(talents, picks):
             entries.append(TalentEntry(name=talent, picked=bool(picked)))
@@ -65,6 +69,7 @@ class TalentTree:
         list_of_groups = list(zip(*(iter(entries),) * 2))
         return TalentTree(entries=list_of_groups)
 
+
 @dataclass
 class ProcessedHeroData:
     n: str
@@ -72,6 +77,7 @@ class ProcessedHeroData:
     talent_tree: TalentTree
     abilities: list[Ability]
     inventory: Inventory
+
 
 @dataclass
 class TourProcessedHeroData(ProcessedHeroData):
@@ -131,9 +137,17 @@ class SpectatingTournament:
             talents = TalentTree.from_parts(hero.talents, hero_state.t)
             inv = Inventory.from_parts(hero_state.items, items)
 
-            phd = TourProcessedHeroData(hero.n, hero.name, talents, hero.abilities, inv,
-                                    player=hero_state.p, level=hero_state.lvl,
-                                    has_aghs=bool(hero_state.aghs[0]), has_shard=bool(hero_state.aghs[1]))
+            phd = TourProcessedHeroData(
+                hero.n,
+                hero.name,
+                talents,
+                hero.abilities,
+                inv,
+                player=hero_state.p,
+                level=hero_state.lvl,
+                has_aghs=bool(hero_state.aghs[0]),
+                has_shard=bool(hero_state.aghs[1]),
+            )
             ret.append(phd)
         return ret
 
@@ -142,27 +156,41 @@ class SpectatingTournament:
 class SpectatingPglTournament:
     data: PGLGameState
 
-    def process_data(self, heroes: dict[str, Hero], hero_map: dict[str, str], items: dict[str, Any]) -> list[TourProcessedHeroData]:
+    def process_data(
+        self, heroes: dict[str, Hero], hero_map: dict[str, str], items: dict[str, Any]
+    ) -> list[TourProcessedHeroData]:
         ret = []
         for hero_meta in self.data.HeroList:
-            hero_name = hero_map[hero_meta['name']]
-            idx = hero_meta['index']
+            hero_name = hero_map[hero_meta["name"]]
+            idx = hero_meta["index"]
 
             _herod = self.data.Heroes[idx]
             _pstatsd = self.data.PlayerStats[idx]
             _invd = self.data.Inventory[idx]
 
-            t = [int(_herod[f'talent_{i}']) for i in range(1, 9)]
+            t = [int(_herod[f"talent_{i}"]) for i in range(1, 9)]
 
             hero = heroes[hero_name]
             talents = TalentTree.from_parts(hero.talents, t)
-            inv = Inventory([items[name] for name in _invd['main'] if name != 'empty'], items[_invd['neutral']] if _invd['neutral'] != 'empty' else None)
+            inv = Inventory(
+                [items[name] for name in _invd["main"] if name != "empty"],
+                items[_invd["neutral"]] if _invd["neutral"] != "empty" else None,
+            )
 
-            phd = TourProcessedHeroData(hero.n, hero.name, talents, hero.abilities, inv,
-                                    player=_pstatsd['name'], level=_herod['level'],
-                                    has_aghs=_herod['aghanims_scepter'], has_shard=_herod['aghanims_shard'])
+            phd = TourProcessedHeroData(
+                hero.n,
+                hero.name,
+                talents,
+                hero.abilities,
+                inv,
+                player=_pstatsd["name"],
+                level=_herod["level"],
+                has_aghs=_herod["aghanims_scepter"],
+                has_shard=_herod["aghanims_shard"],
+            )
             ret.append(phd)
         return ret
+
 
 @dataclass
 class InvalidResponse:
@@ -184,10 +212,13 @@ class API:
         self.cdn_config = cdn_config or CDNConfig.default()
         self.api_config = api_config or APIConfig.default()
 
+    def _map_pgl_hero_names(self, raw_heroes: dict) -> dict[str, str]:
+        return {k: v["data_name"] for k, v in raw_heroes.items()}
+
     async def fetch_pgl_hero_mappings(self) -> dict[str, str]:
-        url = 'https://dota2-data.pglesports.com/static/heroes.json'
+        url = "https://dota2-data.pglesports.com/static/heroes.json"
         data = await self._fetch_json(url)
-        return {k: v['data_name'] for k, v in data.items()}
+        return self._map_pgl_hero_names(data)
 
     async def _fetch_json(self, url) -> dict:
         async with httpx.AsyncClient() as client:
@@ -197,9 +228,12 @@ class API:
 
     async def fetch_items(self, language: str = "english") -> dict[str, Item]:
         items = await self._fetch_data_file(DataType.Items, language)
+        return self._process_items(items)
+
+    def _process_items(self, items: dict[str, Any]) -> dict[str, Item]:
         ret = {}
         for k, v in items.items():
-            if 'name' not in v:
+            if "name" not in v:
                 continue
             i = Item.from_dict(v)
             ret[k] = i
@@ -207,6 +241,9 @@ class API:
 
     async def fetch_heroes(self, language: str = "english") -> dict[str, Hero]:
         heroes = await self._fetch_data_file(DataType.Heroes, language)
+        return self._process_heroes(heroes)
+
+    def _process_heroes(self, heroes: dict[str, Any]) -> dict[str, Hero]:
         ret = {}
         for k, v in heroes.items():
             if k == "npc_dota_hero_target_dummy":
@@ -226,19 +263,21 @@ class API:
         url = f"https://{self.cdn_config.domain}/data/{language}/{type_}.json"
         return await self._fetch_json(url)
 
-    async def get_stream_status(self, channel_id: int) -> Playing | APIError | Spectating | SpectatingTournament  | SpectatingPglTournament| InvalidResponse:
+    async def get_stream_status(
+        self, channel_id: int
+    ) -> Playing | APIError | Spectating | SpectatingTournament | SpectatingPglTournament | InvalidResponse:
         # TODO: parallel? though unlikely to be the 2nd/3rd
         # maybe return meta so client can cache type?
         NOT_AVAIL = "Channel not found. It might take a few minutes for the channel to appear."
         url = f"https://{self.api_config.domain}/data/pubsub/{channel_id}"
         data = await self._fetch_json(url)
 
-        if data.get('error') == NOT_AVAIL:
+        if data.get("error") == NOT_AVAIL:
             print("Attempting to fetch from tournament domain")
             url_tour = f"https://{self.api_config.tour_domain}/data/pubsub/{channel_id}"
             data = await self._fetch_json(url_tour)
 
-        if data.get('error') == NOT_AVAIL:
+        if data.get("error") == NOT_AVAIL:
             print("Attempting to fetch from PGL domain")
             pgs = await PGLGameState.from_stream(channel_id)
             if pgs is not None:
@@ -257,7 +296,7 @@ class API:
 
         if state == "playing":
             return dacite.from_dict(data_class=Playing, data=game)
-        elif state == "spectating" and game.get('matchid'):  # Tournament
+        elif state == "spectating" and game.get("matchid"):  # Tournament
             return dacite.from_dict(data_class=SpectatingTournament, data=game)
         elif state == "spectating":
             return dacite.from_dict(data_class=Spectating, data=game)

@@ -3,6 +3,13 @@ import httpx
 import typing
 import json
 
+# https://dota2-data.pglesports.com/static/heroes.json
+# https://dota2-data.pglesports.com/static/abilities.json
+# https://dota2-data.pglesports.com/static/hero-abilities.json
+# https://dota2-data.pglesports.com/static/aghanims.json
+# https://dota2-data.pglesports.com/static/items.json
+# https://dota2-data.pglesports.com/static/levels.json
+# https://dota2-data.pglesports.com/static/talents.json
 events = ["GameState", "HeroList", "PlayerStats", "Heroes", "Abilities", "Inventory"]
 
 @dataclass
@@ -45,28 +52,3 @@ async def pgl_state_from_aiter(aiter: typing.AsyncIterator[str]) -> PGLGameState
                 if not any((v is None for v in d.values())):
                     return PGLGameState(**d)
     assert False
-
-class AiterF:
-    def __init__(self, path):
-        self.fd = open(path, "r")
-        self.iter = []
-        self.iter_idx = 0
-
-    def __aiter__(self):
-        self.iter = self.fd.readlines()
-        self.iter_idx = 0
-        return self
-
-    async def __anext__(self):
-        if self.iter_idx >= len(self.iter):
-            raise StopAsyncIteration
-        self.iter_idx += 1
-        return self.iter[self.iter_idx - 1]
-
-
-if __name__ == '__main__':
-    aiter = AiterF("pgl.txt")
-
-    import asyncio
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(pgl_state_from_aiter(aiter))
