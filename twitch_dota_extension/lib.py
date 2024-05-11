@@ -5,6 +5,7 @@ from typing import Optional, Any
 
 import dacite
 import httpx
+from twitch_dota_extension.pgl import PGLGameState
 
 from twitch_dota_extension.tooltips import Hero, Ability, Item
 
@@ -136,6 +137,33 @@ class SpectatingTournament:
             ret.append(phd)
         return ret
 
+
+@dataclass
+class SpectatingPglTournament:
+    data: PGLGameState
+
+    def process_data(self, heroes: dict[str, Hero], hero_map: dict[str, str], items: dict[str, Any]) -> list[TourProcessedHeroData]:
+        ret = []
+        for hero_meta in self.data.HeroList:
+            hero_name = hero_map[hero_meta['name']]
+            idx = hero_meta['index']
+
+            _herod = self.data.Heroes[idx]
+            _pstatsd = self.data.PlayerStats[idx]
+            _invd = self.data.Inventory[idx]
+
+            t = [int(_herod[f'talent_{i}']) for i in range(1, 9)]
+
+            hero = heroes[hero_name]
+            talents = TalentTree.from_parts(hero.talents, t)
+            inv = Inventory([items[name] for name in _invd['main'] if name != 'empty'], items[_invd['neutral']] if _invd['neutral'] != 'empty' else None)
+
+            phd = TourProcessedHeroData(hero.n, hero.name, talents, hero.abilities, inv,
+                                    player=_pstatsd['name'], level=_herod['level'],
+                                    has_aghs=_herod['aghanims_scepter'], has_shard=_herod['aghanims_shard'])
+            ret.append(phd)
+        return ret
+
 @dataclass
 class InvalidResponse:
     r: dict[str, Any]
@@ -155,6 +183,11 @@ class API:
     def __init__(self, cdn_config: Optional[CDNConfig] = None, api_config: Optional[APIConfig] = None):
         self.cdn_config = cdn_config or CDNConfig.default()
         self.api_config = api_config or APIConfig.default()
+
+    async def fetch_pgl_hero_mappings(self) -> dict[str, str]:
+        url = 'https://dota2-data.pglesports.com/static/heroes.json'
+        data = await self._fetch_json(url)
+        return {k: v['data_name'] for k, v in data.items()}
 
     async def _fetch_json(self, url) -> dict:
         async with httpx.AsyncClient() as client:
@@ -193,15 +226,23 @@ class API:
         url = f"https://{self.cdn_config.domain}/data/{language}/{type_}.json"
         return await self._fetch_json(url)
 
-    async def get_stream_status(self, channel_id: int) -> Playing | APIError | Spectating | SpectatingTournament | InvalidResponse:
-        MAYBE_IN_TOURNAMENT = "Channel not found. It might take a few minutes for the channel to appear."
+    async def get_stream_status(self, channel_id: int) -> Playing | APIError | Spectating | SpectatingTournament  | SpectatingPglTournament| InvalidResponse:
+        # TODO: parallel? though unlikely to be the 2nd/3rd
+        # maybe return meta so client can cache type?
+        NOT_AVAIL = "Channel not found. It might take a few minutes for the channel to appear."
         url = f"https://{self.api_config.domain}/data/pubsub/{channel_id}"
         data = await self._fetch_json(url)
 
-        if data.get('error') == MAYBE_IN_TOURNAMENT:
+        if data.get('error') == NOT_AVAIL:
             print("Attempting to fetch from tournament domain")
             url_tour = f"https://{self.api_config.tour_domain}/data/pubsub/{channel_id}"
             data = await self._fetch_json(url_tour)
+
+        if data.get('error') == NOT_AVAIL:
+            print("Attempting to fetch from PGL domain")
+            pgs = await PGLGameState.from_stream(channel_id)
+            if pgs is not None:
+                return SpectatingPglTournament(pgs)
 
         r = API._from_json(data)
         return r
