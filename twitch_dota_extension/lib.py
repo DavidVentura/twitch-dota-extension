@@ -81,10 +81,10 @@ class ProcessedHeroData:
 
 @dataclass
 class TourProcessedHeroData(ProcessedHeroData):
-    player: Optional[str] = None
-    level: Optional[int] = None
-    has_aghs: Optional[bool] = False
-    has_shard: Optional[bool] = False
+    player: str
+    level: int
+    has_scepter: bool
+    has_shard: bool
 
 
 @dataclass
@@ -146,7 +146,7 @@ class SpectatingTournament:
                 inv,
                 player=hero_state.p,
                 level=hero_state.lvl,
-                has_aghs=bool(hero_state.aghs[0]),
+                has_scepter=bool(hero_state.aghs[0]),
                 has_shard=bool(hero_state.aghs[1]),
             )
             ret.append(phd)
@@ -186,7 +186,7 @@ class SpectatingPglTournament:
                 inv,
                 player=_pstatsd["name"],
                 level=_herod["level"],
-                has_aghs=_herod["aghanims_scepter"],
+                has_scepter=_herod["aghanims_scepter"],
                 has_shard=_herod["aghanims_shard"],
             )
             ret.append(phd)
