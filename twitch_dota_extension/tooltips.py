@@ -151,6 +151,7 @@ class Item:
     cooldown: Optional[str]
     manacost: Optional[str]
     cost: Optional[str]
+    description: list[Node]
     active: list[Node]
     use: list[Node]
     passive: list[Node]
@@ -164,6 +165,7 @@ class Item:
             active=markup_to_nodes(d.get("active", "")),
             use=markup_to_nodes(d.get("use", "")),
             passive=markup_to_nodes(d.get("passive", "")),
+            description=markup_to_nodes(d.get("tooltips", {}).get("Description", "")),
             cooldown=d.get("AbilityCooldown"),
             manacost=d.get("AbilityManaCost"),
             cost=d.get("ItemCost"),

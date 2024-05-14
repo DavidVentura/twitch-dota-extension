@@ -1,7 +1,10 @@
 from dataclasses import dataclass
+import logging
 import httpx
 import typing
 import json
+
+logger = logging.getLogger(__name__)
 
 # https://dota2-data.pglesports.com/static/heroes.json
 # https://dota2-data.pglesports.com/static/abilities.json
@@ -36,7 +39,9 @@ class PGLGameState:
 async def pgl_state_from_aiter(aiter: typing.AsyncIterator[str]) -> PGLGameState | None:
     cur_event = None
     d = {e: None for e in events if e != "GameState"}
+    acc = []
     async for line in aiter:
+        acc.append(line)
         if line.startswith("event:"):
             _, _, cur_event = line.partition(":")
             cur_event = cur_event.strip()
@@ -62,4 +67,6 @@ async def pgl_state_from_aiter(aiter: typing.AsyncIterator[str]) -> PGLGameState
                 d[cur_event] = data
                 if not any((v is None for v in d.values())):
                     return PGLGameState(**d)
-    assert False
+    logger.warning("Read entire response and did not build a valid GameState")
+    logger.warning('\n'.join(acc))
+    return None

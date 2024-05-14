@@ -1,3 +1,4 @@
+import dataclasses
 import enum
 import json
 from dataclasses import dataclass
@@ -39,14 +40,15 @@ class Inventory:
 class HeroData:
     t: list[int]
     items: dict[str, HDItem]
-    # base_ability_count: int
+    # This is not provided by the API
+    lvl: int = 1
+    aghs: list[int] = dataclasses.field(default_factory=lambda: [0,0])
 
 
 @dataclass
 class TournamentHeroData(HeroData):
-    p: str
-    lvl: int
-    aghs: list[int]
+    p: str = "unknown"
+    #aghs: list[int]
 
 
 @dataclass
@@ -64,9 +66,10 @@ class TalentTree:
         entries: list[TalentEntry] = []
         for talent, picked in zip(talents, picks):
             entries.append(TalentEntry(name=talent, picked=bool(picked)))
-        # TODO: these are backwards in the API!!
-        # it returns 0, 1, 2, 3, .. where 0, 2, 4, 6 are RIGHT and 1,3,5,7 are LEFT
         list_of_groups = list(zip(*(iter(entries),) * 2))
+        # these are backwards in the API!!
+        # it returns 0, 1, 2, 3, .. where 0, 2, 4, 6 are RIGHT and 1,3,5,7 are LEFT
+        list_of_groups = [(second, first) for first, second in list_of_groups]
         return TalentTree(entries=list_of_groups)
 
 
@@ -77,14 +80,16 @@ class ProcessedHeroData:
     talent_tree: TalentTree
     abilities: list[Ability]
     inventory: Inventory
+    # not provided by the API
+    has_scepter: bool
+    has_shard: bool
+    level: int
+    player: str
 
 
 @dataclass
 class TourProcessedHeroData(ProcessedHeroData):
-    player: str
-    level: int
-    has_scepter: bool
-    has_shard: bool
+    pass
 
 
 @dataclass
@@ -92,12 +97,18 @@ class Playing:
     selected_hero: str
     selected_hero_data: HeroData
 
-    def process_data(self, heroes: dict[str, Hero], items) -> ProcessedHeroData:
+    def process_data(self, streamer: str, heroes: dict[str, Hero], items) -> ProcessedHeroData:
         hero = heroes[self.selected_hero]
         talents = TalentTree.from_parts(hero.talents, self.selected_hero_data.t)
         inv = Inventory.from_parts(self.selected_hero_data.items, items)
 
-        phd = ProcessedHeroData(hero.n, hero.name, talents, hero.abilities, inv)
+        phd = ProcessedHeroData(hero.n, hero.name, talents, hero.abilities, inv,
+                # not provided by the API
+                player=streamer,
+                level=1,
+                has_scepter=False,
+                has_shard=False,
+                )
         return phd
 
 
@@ -125,6 +136,27 @@ class APIConfig:
 class Spectating:
     heroes: list[str]
     hero_data: dict[str, HeroData]
+
+    def process_data(self, heroes: dict[str, Hero], items) -> list[TourProcessedHeroData]:
+        ret = []
+        for hero_name, hero_state in self.hero_data.items():
+            hero = heroes[hero_name]
+            talents = TalentTree.from_parts(hero.talents, hero_state.t)
+            inv = Inventory.from_parts(hero_state.items, items)
+
+            phd = TourProcessedHeroData(
+                hero.n,
+                hero.name,
+                talents,
+                hero.abilities,
+                inv,
+                player="unknown",
+                level=hero_state.lvl,
+                has_scepter=bool(hero_state.aghs[0]),
+                has_shard=bool(hero_state.aghs[1]),
+            )
+            ret.append(phd)
+        return ret
 
 
 @dataclass
@@ -297,7 +329,9 @@ class API:
         state = game.get("gsi_state", "unpopulated in API")
 
         if state == "playing":
-            return dacite.from_dict(data_class=Playing, data=game)
+            ret = dacite.from_dict(data_class=Playing, data=game)
+            ret.selected_hero_data.aghs = [False, False]
+            return ret
         elif state == "spectating" and game.get("matchid"):  # Tournament
             return dacite.from_dict(data_class=SpectatingTournament, data=game)
         elif state == "spectating":
