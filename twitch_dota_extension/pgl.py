@@ -26,10 +26,11 @@ class PGLGameState:
 
     @staticmethod
     async def from_stream(domain: str, channel_id: int) -> typing.Union["PGLGameState", None]:
+        timeout = httpx.Timeout(10.0, connect=2.0, read=6.0)
         async with httpx.AsyncClient() as client:
             try:
                 async with client.stream(
-                    "GET", f"https://{domain}/base-data", params={"channel": channel_id}, timeout=5.0
+                    "GET", f"https://{domain}/base-data", params={"channel": channel_id}, timeout=timeout,
                 ) as r:
                     return await pgl_state_from_aiter(r.aiter_lines())
             except httpx.ReadTimeout:
@@ -39,9 +40,8 @@ class PGLGameState:
 async def pgl_state_from_aiter(aiter: typing.AsyncIterator[str]) -> PGLGameState | None:
     cur_event = None
     d = {e: None for e in events if e != "GameState"}
-    acc = []
+    logger.info("Reading PGL data")
     async for line in aiter:
-        acc.append(line)
         if line.startswith("event:"):
             _, _, cur_event = line.partition(":")
             cur_event = cur_event.strip()
@@ -68,5 +68,4 @@ async def pgl_state_from_aiter(aiter: typing.AsyncIterator[str]) -> PGLGameState
                 if not any((v is None for v in d.values())):
                     return PGLGameState(**d)
     logger.warning("Read entire response and did not build a valid GameState")
-    logger.warning('\n'.join(acc))
     return None

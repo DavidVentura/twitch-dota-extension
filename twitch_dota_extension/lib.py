@@ -240,6 +240,11 @@ class DataType(enum.Enum):
     Heroes = enum.auto()
 
 
+class Source(enum.Enum):
+    PGL = enum.auto()
+    Streamer = enum.auto()
+    Tournament = enum.auto()
+
 class API:
     def __init__(self, cdn_config: Optional[CDNConfig] = None, api_config: Optional[APIConfig] = None):
         self.cdn_config = cdn_config or CDNConfig.default()
@@ -297,20 +302,24 @@ class API:
         return await self._fetch_json(url)
 
     async def get_stream_status(
-        self, channel_id: int
+            self, channel_id: int, source: Optional[Source]=None,
     ) -> Playing | APIError | Spectating | SpectatingTournament | SpectatingPglTournament | InvalidResponse:
         # TODO: parallel? though unlikely to be the 2nd/3rd
         # maybe return meta so client can cache type?
         NOT_AVAIL = "Channel not found. It might take a few minutes for the channel to appear."
-        url = f"https://{self.api_config.domain}/data/pubsub/{channel_id}"
-        data = await self._fetch_json(url)
 
-        if data.get("error") == NOT_AVAIL:
+        data = {}
+        if source in [None, Source.Streamer]:
+            print("Attempting to fetch from streamer domain")
+            url = f"https://{self.api_config.domain}/data/pubsub/{channel_id}"
+            data = await self._fetch_json(url)
+
+        if source == Source.Tournament or (source is None and data.get("error") == NOT_AVAIL):
             print("Attempting to fetch from tournament domain")
             url_tour = f"https://{self.api_config.tour_domain}/data/pubsub/{channel_id}"
             data = await self._fetch_json(url_tour)
 
-        if data.get("error") == NOT_AVAIL:
+        if source == Source.PGL or (source is None and data.get("error") == NOT_AVAIL):
             print("Attempting to fetch from PGL domain")
 
             pgs = await PGLGameState.from_stream(self.api_config.pgl_domain, channel_id)
