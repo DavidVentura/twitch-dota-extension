@@ -8,7 +8,7 @@ import dacite
 import httpx
 from twitch_dota_extension.pgl import PGLGameState
 
-from twitch_dota_extension.tooltips import Hero, Ability, Item
+from twitch_dota_extension.tooltips import Hero, Ability, Item, Facet
 
 
 @dataclass
@@ -40,6 +40,7 @@ class Inventory:
 class HeroData:
     t: list[int]
     items: dict[str, HDItem]
+    facet: int
     # This is not provided by the API
     lvl: int = 1
     aghs: list[int] = dataclasses.field(default_factory=lambda: [0,0])
@@ -85,6 +86,7 @@ class ProcessedHeroData:
     has_shard: bool
     level: int
     player: str
+    facet: Facet
 
 
 @dataclass
@@ -101,6 +103,7 @@ class Playing:
         hero = heroes[self.selected_hero]
         talents = TalentTree.from_parts(hero.talents, self.selected_hero_data.t)
         inv = Inventory.from_parts(self.selected_hero_data.items, items)
+        facet = [f for f in hero.facets if f.facet_id == self.selected_hero_data.facet][0]
 
         phd = ProcessedHeroData(hero.n, hero.name, talents, hero.abilities, inv,
                 # not provided by the API
@@ -108,6 +111,7 @@ class Playing:
                 level=1,
                 has_scepter=False,
                 has_shard=False,
+                facet=facet,
                 )
         return phd
 

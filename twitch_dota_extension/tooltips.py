@@ -104,6 +104,7 @@ class Ability:
     has_shard_upgrade: bool
     granted_by_scepter: bool
     granted_by_shard: bool
+    innate: bool
     properties: list[Property]
 
     @staticmethod
@@ -116,9 +117,29 @@ class Ability:
             has_shard_upgrade=d.get("HasShardUpgrade") == "1",
             granted_by_scepter=d.get("IsGrantedByScepter") == "1",
             granted_by_shard=d.get("IsGrantedByShard") == "1",
+            innate=d.get("Innate") == "1",
             properties=[Property.from_dict(p) for p in d["properties"]],
         )
 
+
+@dataclass
+class Facet:
+    facet_id: int
+    icon: str
+    color: str
+    n: str
+    title: str
+    description: str
+
+    @staticmethod
+    def from_dict(fid: int, d: dict) -> "Facet":
+        return Facet(facet_id=int(fid),
+                     icon=d["Icon"],
+                     color=d["Color"],
+                     n=d["n"],
+                     title=d["tooltip"].get("title", "NO TITLE"),
+                     description=d["tooltip"].get("description", "NO DESC")
+                     )
 
 @dataclass
 class Hero:
@@ -126,6 +147,7 @@ class Hero:
     name: str
     abilities: list[Ability]
     talents: list[str]
+    facets: list[Facet]
 
     @staticmethod
     def from_dict(d: dict) -> "Hero":
@@ -134,6 +156,7 @@ class Hero:
             name=d["Name"],
             abilities=[Ability.from_dict(a) for a in d["abilities"]],
             talents=flatten_talents(d["talents"]),
+            facets=[Facet.from_dict(fid, f) for fid, f in d["facets"].items()],
         )
 
 
