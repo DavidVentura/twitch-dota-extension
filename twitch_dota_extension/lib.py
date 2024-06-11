@@ -175,6 +175,7 @@ class SpectatingTournament:
             hero = heroes[hero_name]
             talents = TalentTree.from_parts(hero.talents, hero_state.t)
             inv = Inventory.from_parts(hero_state.items, items)
+            facet = [f for f in hero.facets if f.facet_id == hero_state.facet][0]
 
             phd = TourProcessedHeroData(
                 hero.n,
@@ -186,6 +187,7 @@ class SpectatingTournament:
                 level=hero_state.lvl,
                 has_scepter=bool(hero_state.aghs[0]),
                 has_shard=bool(hero_state.aghs[1]),
+                facet=facet,
             )
             ret.append(phd)
         return ret

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "twitch-dota-extension"
-version = "0.1.7"
+version = "0.1.8"
 description = "Interact with the Twitch Extension APIs 'Dota2' and 'PGL' for a given Twitch channel ID"
 authors = ["David Ventura <davidventura27@gmail.com>"]
 license = "MIT"
