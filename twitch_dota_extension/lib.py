@@ -41,6 +41,7 @@ class HeroData:
     t: list[int]
     items: dict[str, HDItem]
     facet: int
+    abilities: dict[str, dict[str, str]]
     # This is not provided by the API
     lvl: int = 1
     aghs: list[int] = dataclasses.field(default_factory=lambda: [0,0])
@@ -104,8 +105,14 @@ class Playing:
         talents = TalentTree.from_parts(hero.talents, self.selected_hero_data.t)
         inv = Inventory.from_parts(self.selected_hero_data.items, items)
         facet = [f for f in hero.facets if f.facet_id == self.selected_hero_data.facet][0]
+        unlocked_abilities = []
+        for ab_details in self.selected_hero_data.abilities.values():
+            ab_name = ab_details['name']
+            unlocked_abilities.append(ab_name)
 
-        phd = ProcessedHeroData(hero.n, hero.name, talents, hero.abilities, inv,
+        abilities = [a for a in hero.abilities if a.n in unlocked_abilities]
+
+        phd = ProcessedHeroData(hero.n, hero.name, talents, abilities, inv,
                 # not provided by the API
                 player=streamer,
                 level=1,
@@ -217,6 +224,7 @@ class SpectatingPglTournament:
                 [items[name] for name in _invd["main"] if name != "empty"],
                 items[_invd["neutral"]] if _invd["neutral"] != "empty" else None,
             )
+            facet = None  # FIXME
 
             phd = TourProcessedHeroData(
                 hero.n,
@@ -228,6 +236,7 @@ class SpectatingPglTournament:
                 level=_herod["level"],
                 has_scepter=_herod["aghanims_scepter"],
                 has_shard=_herod["aghanims_shard"],
+                facet=facet,
             )
             ret.append(phd)
         return ret
