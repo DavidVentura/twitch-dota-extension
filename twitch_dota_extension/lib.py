@@ -44,13 +44,13 @@ class HeroData:
     abilities: dict[str, dict[str, str]]
     # This is not provided by the API
     lvl: int = 1
-    aghs: list[int] = dataclasses.field(default_factory=lambda: [0,0])
+    aghs: list[int] = dataclasses.field(default_factory=lambda: [0, 0])
 
 
 @dataclass
 class TournamentHeroData(HeroData):
     p: str = "unknown"
-    #aghs: list[int]
+    # aghs: list[int]
 
 
 @dataclass
@@ -107,19 +107,24 @@ class Playing:
         facet = [f for f in hero.facets if f.facet_id == self.selected_hero_data.facet][0]
         unlocked_abilities = []
         for ab_details in self.selected_hero_data.abilities.values():
-            ab_name = ab_details['name']
+            ab_name = ab_details["name"]
             unlocked_abilities.append(ab_name)
 
         abilities = [a for a in hero.abilities if a.n in unlocked_abilities]
 
-        phd = ProcessedHeroData(hero.n, hero.name, talents, abilities, inv,
-                # not provided by the API
-                player=streamer,
-                level=1,
-                has_scepter=False,
-                has_shard=False,
-                facet=facet,
-                )
+        phd = ProcessedHeroData(
+            hero.n,
+            hero.name,
+            talents,
+            abilities,
+            inv,
+            # not provided by the API
+            player=streamer,
+            level=1,
+            has_scepter=False,
+            has_shard=False,
+            facet=facet,
+        )
         return phd
 
 
@@ -137,10 +142,16 @@ class APIConfig:
     domain: str
     tour_domain: str
     pgl_domain: str
+    pgl_heroes_domain: str
 
     @staticmethod
     def default() -> "APIConfig":
-        return APIConfig("tooltips.layerth.dev", "tour-tooltips.layerth.dev", "dota2-twitch.pglesports.com")
+        return APIConfig(
+            "tooltips.layerth.dev",
+            "tour-tooltips.layerth.dev",
+            "dota2-twitch.pglesports.com",
+            "dota2-stats.pglesports.com",
+        )
 
 
 @dataclass
@@ -262,6 +273,7 @@ class Source(enum.Enum):
     Streamer = enum.auto()
     Tournament = enum.auto()
 
+
 class API:
     def __init__(self, cdn_config: Optional[CDNConfig] = None, api_config: Optional[APIConfig] = None):
         self.cdn_config = cdn_config or CDNConfig.default()
@@ -271,8 +283,7 @@ class API:
         return {k: v["data_name"] for k, v in raw_heroes.items()}
 
     async def fetch_pgl_hero_mappings(self) -> dict[str, str]:
-        url = "https://dota2-data.pglesports.com/static/heroes.json"
-        data = await self._fetch_json(url)
+        data = await self._fetch_json(self.api_config.pgl_heroes_domain)
         return self._map_pgl_hero_names(data)
 
     async def _fetch_json(self, url) -> dict:
@@ -319,7 +330,9 @@ class API:
         return await self._fetch_json(url)
 
     async def get_stream_status(
-            self, channel_id: int, source: Optional[Source]=None,
+        self,
+        channel_id: int,
+        source: Optional[Source] = None,
     ) -> Playing | APIError | Spectating | SpectatingTournament | SpectatingPglTournament | InvalidResponse:
         # TODO: parallel? though unlikely to be the 2nd/3rd
         # maybe return meta so client can cache type?

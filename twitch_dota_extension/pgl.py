@@ -6,13 +6,13 @@ import json
 
 logger = logging.getLogger(__name__)
 
-# https://dota2-data.pglesports.com/static/heroes.json
-# https://dota2-data.pglesports.com/static/abilities.json
-# https://dota2-data.pglesports.com/static/hero-abilities.json
-# https://dota2-data.pglesports.com/static/aghanims.json
-# https://dota2-data.pglesports.com/static/items.json
-# https://dota2-data.pglesports.com/static/levels.json
-# https://dota2-data.pglesports.com/static/talents.json
+# https://dota2-stats.pglesports.com/static/heroes.json
+# https://dota2-stats.pglesports.com/static/abilities.json
+# https://dota2-stats.pglesports.com/static/hero-abilities.json
+# https://dota2-stats.pglesports.com/static/aghanims.json
+# https://dota2-stats.pglesports.com/static/items.json
+# https://dota2-stats.pglesports.com/static/levels.json
+# https://dota2-stats.pglesports.com/static/talents.json
 events = ["GameState", "HeroList", "PlayerStats", "Heroes", "Abilities", "Inventory"]
 
 
