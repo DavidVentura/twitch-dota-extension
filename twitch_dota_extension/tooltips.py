@@ -163,6 +163,9 @@ class Hero:
 def flatten_talents(d: dict) -> list:
     ret = []
     for v in d.values():
+        if "name" not in v:
+            # why are there talents without name
+            continue
         ret.append(v["name"])
     return ret
 
