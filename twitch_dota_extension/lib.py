@@ -149,7 +149,7 @@ class APIConfig:
         return APIConfig(
             "tooltips.layerth.dev",
             "tour-tooltips.layerth.dev",
-            "dota2-twitch.pglesports.com",
+            "dte-en.pglesports.com",
             "dota2-stats.pglesports.com",
         )
 
@@ -219,7 +219,8 @@ class SpectatingPglTournament:
         self, heroes: dict[str, Hero], hero_map: dict[str, str], items: dict[str, Any]
     ) -> list[TourProcessedHeroData]:
         ret = []
-        for hero_meta in self.data.HeroList:
+        hero_list =[{"name": item["name"], "index": i} for i, item in enumerate(self.data.Heroes)]
+        for hero_meta in hero_list:
             hero_name = hero_map[hero_meta["name"]]
             idx = hero_meta["index"]
 
@@ -235,7 +236,7 @@ class SpectatingPglTournament:
                 [items[name] for name in _invd["main"] if name != "empty"],
                 items[_invd["neutral"]] if _invd["neutral"] != "empty" else None,
             )
-            facet = None  # FIXME
+            facet = [f for f in hero.facets if f.facet_id == _herod['facet']][0]
 
             phd = TourProcessedHeroData(
                 hero.n,
@@ -344,10 +345,10 @@ class API:
             url = f"https://{self.api_config.domain}/data/pubsub/{channel_id}"
             data = await self._fetch_json(url)
 
-        if source == Source.Tournament or (source is None and data.get("error") == NOT_AVAIL):
-            print("Attempting to fetch from tournament domain")
-            url_tour = f"https://{self.api_config.tour_domain}/data/pubsub/{channel_id}"
-            data = await self._fetch_json(url_tour)
+        #if source == Source.Tournament or (source is None and data.get("error") == NOT_AVAIL):
+        #    print("Attempting to fetch from tournament domain")
+        #    url_tour = f"https://{self.api_config.tour_domain}/data/pubsub/{channel_id}"
+        #    data = await self._fetch_json(url_tour)
 
         if source == Source.PGL or (source is None and data.get("error") == NOT_AVAIL):
             print("Attempting to fetch from PGL domain")

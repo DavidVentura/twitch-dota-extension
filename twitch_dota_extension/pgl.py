@@ -13,12 +13,12 @@ logger = logging.getLogger(__name__)
 # https://dota2-stats.pglesports.com/static/items.json
 # https://dota2-stats.pglesports.com/static/levels.json
 # https://dota2-stats.pglesports.com/static/talents.json
-events = ["GameState", "HeroList", "PlayerStats", "Heroes", "Abilities", "Inventory"]
+#events = ["GameState", "HeroList", "PlayerStats", "Heroes", "Abilities", "Inventory"]
+events = ["GameState", "PlayerStats", "Heroes", "Abilities", "Inventory"]
 
 
 @dataclass
 class PGLGameState:
-    HeroList: list[dict]
     PlayerStats: list[dict]
     Heroes: list[dict]
     Abilities: list[dict]
@@ -65,7 +65,8 @@ async def pgl_state_from_aiter(aiter: typing.AsyncIterator[str]) -> PGLGameState
             else:
                 assert cur_event is not None
                 d[cur_event] = data
-                if not any((v is None for v in d.values())):
+                missing = [k for k, v in d.items() if v is None]
+                if not missing:
                     return PGLGameState(**d)
     logger.warning("Read entire response and did not build a valid GameState")
     return None
