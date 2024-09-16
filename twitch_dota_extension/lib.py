@@ -41,7 +41,8 @@ class HeroData:
     t: list[int]
     items: dict[str, HDItem]
     facet: int
-    abilities: dict[str, dict[str, str]]
+    # in spectating these are missing
+    abilities: dict[str, dict[str, str]] = dataclasses.field(default_factory=dict)
     # This is not provided by the API
     lvl: int = 1
     aghs: list[int] = dataclasses.field(default_factory=lambda: [0, 0])

@@ -85,11 +85,13 @@ class Tooltip:
     description: Optional[str]
     lore: Optional[str]
     scepter_description: Optional[str]
+    shard_description: Optional[str]
 
     @staticmethod
     def from_dict(d: dict) -> "Tooltip":
         return Tooltip(
             scepter_description=d.get("scepter_description"),
+            shard_description=d.get("shard_description"),
             description=d.get("Description"),
             lore=d.get("Lore"),
         )
