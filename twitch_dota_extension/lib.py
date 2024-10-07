@@ -285,7 +285,8 @@ class API:
         return {k: v["data_name"] for k, v in raw_heroes.items()}
 
     async def fetch_pgl_hero_mappings(self) -> dict[str, str]:
-        data = await self._fetch_json(self.api_config.pgl_heroes_domain)
+        url = f"https://{self.api_config.pgl_heroes_domain}/static/heroes.json"
+        data = await self._fetch_json(url)
         return self._map_pgl_hero_names(data)
 
     async def _fetch_json(self, url) -> dict:
