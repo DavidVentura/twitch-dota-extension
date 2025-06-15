@@ -234,8 +234,8 @@ class SpectatingPglTournament:
             hero = heroes[hero_name]
             talents = TalentTree.from_parts(hero.talents, t)
             inv = Inventory(
-                [items[name] for name in _invd["main"] if name != "empty"],
-                items[_invd["neutral"]] if _invd["neutral"] != "empty" else None,
+                [items[item['name']] for item in _invd["main"] if item['name'] != "empty"],
+                items[_invd["neutral"]['name']] if _invd["neutral"]['name'] != "empty" else None,
             )
             facet = [f for f in hero.facets if f.facet_id == _herod['facet']][0]
 
